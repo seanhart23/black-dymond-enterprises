@@ -1,0 +1,85 @@
+<div class='section'>
+    <div class='row'>
+        <div class='col-lg-6'>
+            <table class='timesheetClass'>
+                <tr class='label'>
+                    <td>How was class?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.howWasClass %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>What was your class time?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.classTime %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Did you attend class today?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.attend %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Is there any information you would like to share with us pertaining to your
+                        training class?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.additionalInfo %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class='col-lg-6'>
+            <table class='timesheetTicket'>
+                <tr class='label'>
+                    <td>Did you visit AVA/Technical Support today?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.visit %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Did you receive a ticket/incident number from AVA/Tech Support today?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.recieveTicket %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>AVA/Technical Support: Ticket/Incident Number</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.ticketNumber %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Explain the technical issue you are experiencing</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.explainIssue %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Supporting Documents</td>
+                </tr>
+                <tr>
+                    <td><a href='/images/uploads/<%= timesheet.attachment %>' target='_blank'>
+                            <%= timesheet.attachment %>
+                        </a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

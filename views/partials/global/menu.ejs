@@ -1,0 +1,35 @@
+<div id='menu'>
+    <% if(currentUser.role === "Admin"){ %>
+        <div class='menu-link'>
+            <a href='/dashboard'>Dashboard</a>
+        </div>
+        <div class='menu-link'>
+            <a href='/timesheets'>Time Sheet Entry</a>
+        </div>
+        <div class='menu-link'>
+            <a href='/timesheetreporting'>Time Sheet Reporting</a>
+        </div>
+        <div class='menu-link'>
+            <a href='/clients'>Manage Clients</a>
+        </div>
+        <div class='menu-link'>
+            <a href='/submissions'>Manage Submission Types</a>
+        </div>
+        <div class='menu-link'>
+            <a href='/register'>Add Employee</a>
+        </div>
+        <div class='menu-link'>
+            <a href='/manage'>Manage Employees</a>
+        </div>
+    <% } else { %>
+        <div class='menu-link'>
+            <a href='/dashboard'>Dashboard</a>
+        </div>
+        <div class='menu-link'>
+            <a href='/timesheets'>Time Sheet Entry</a>
+        </div>
+        <div class='menu-link'>
+            <a href='#'>Ticket Tracking</a>
+        </div>
+    <% } %>
+</div>

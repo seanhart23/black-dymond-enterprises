@@ -1,0 +1,71 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <% if(currentUser.role==="Admin" ){ %>
+                    <div class='col-lg-10' id='right'>
+                        <h5>Employees</h5>
+                        <hr>
+                        <table id='employees'>
+                            <tr>
+                                <th>CSPID</th>
+                                <th>Role</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Hire Date</th>
+                                <th>Client</th>
+                                <th>CCA</th>
+                            </tr>
+                        <% Users.forEach(function(User){ %>
+                            <tr>
+                            <td>
+                                <%= User.cspid %>
+                            </td>
+                            <td>
+                                <%= User.role %>
+                            </td>
+                            <td>
+                                <%= User.firstName %>
+                            </td>
+                            <td>
+                                <%= User.lastName %>
+                            </td>
+                            <td>
+                                <%= User.username %>
+                            </td>
+                            <td>
+                                <%= User.email %>
+                            </td>
+                            <td>
+                                <%= User.phone %>
+                            </td>
+                            <td>
+                                <%= User.hireDate %>
+                            </td>
+                            <td>
+                                <%= User.client %>
+                            </td>
+                            <td>
+                                <%= User.cca %>
+                            </td>
+                            </tr>
+                        <% }) %>
+                        </table>
+                        <a href='/register'><button id='add'>Add an Employee</button></a>
+                    </div>                     
+                    </div>
+            </div>
+            <% } else { %>
+                <div class='col-lg-10' id='right'>
+                    <h1>Nice Try! You need to be an admin to access this page.</h1>
+                </div>
+                <% } %>
+    </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

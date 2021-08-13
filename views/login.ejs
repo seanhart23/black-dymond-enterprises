@@ -1,0 +1,46 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-12' id='right'>
+                    <div class='logo-container'>
+                        <img src='../images/logo.png' id='logo'>
+                    </div>
+                    <form action='/login' method='POST' id='login'>
+                        <div class='title'>Login</div>
+                        <div class='form-group'>
+                            <input type='text' class='form-control' name='username' placeholder="Username">
+                        </div>
+                        <div class='form-group'>
+                            <input type='password' class='form-control' name='password' placeholder="Password">
+                        </div>
+                        <button type='submit'>Login</button>
+                    </form>
+                    <!-- TEST INFO -->
+                    <div style='width: 100%'>
+                        <table id='test-info' style='margin: 20px auto; text-align: left'>
+                            <tr>
+                                <td><b>Username: </b> </td>
+                                <td>Admin</td>
+                            </tr>
+                            <tr>
+                                <td><b>Password: </b><br><br></td>
+                                <td>test<br><br></td>
+                            </tr>
+                            <tr>
+                                <td><b>Username: </b> </td>
+                                <td>Employee</td>
+                            </tr>
+                            <tr>
+                                <td><b>Password: </b></td>
+                                <td>test</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- END TEST INFO-->
+                </div>
+            </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>
+
+

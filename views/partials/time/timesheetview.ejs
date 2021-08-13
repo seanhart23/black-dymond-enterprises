@@ -1,0 +1,61 @@
+
+<div class='timesheet-layout'>
+    <div class='timesheet-header'>Timesheet</div>
+    <div class='timesheet-body'>
+        <div class='row'>
+            <div class='col-lg-6'>
+                <table class='timesheetview'>
+                    <tr>
+                        <td class='label'>Employee Name:</td>
+                        <% users.forEach(function(user){ %>
+                            <% if(user.cspid === timesheet.cspid){ %>
+                                <td><%= user.firstName %> <%= user.lastName %></td>
+                            <% } %>
+                        <% }) %>
+                    </tr>
+                    <tr>
+                        <td class='label'>CSPID:</td>
+                        <td><%= timesheet.cspid %></td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Client:</td>
+                        <td><%= timesheet.client %></td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Submission Type:</td>
+                        <td><%= timesheet.submission %></td>
+                    </tr>
+                </table>
+            </div>
+            <div class='col-lg-6'>
+                <table class='timesheetview'>
+                    <tr>
+                        <td class='label'>Date Submitted:</td>
+                        <% var date = timesheet.created.toLocaleDateString() %>
+                        <% var time = timesheet.created.toLocaleTimeString() %>
+                        <td><%= date %></td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Time Submitted:</td>
+                        <td><%= time %></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <% if(timesheet.submission === "Training"){ %>
+            <%- include('../timesheets/training.ejs') -%>
+        <% } else if(timesheet.submission === "Certification" || timesheet.submission === "Production") { %>
+            <%- include('../timesheets/certification.ejs') -%>
+        <% } else if(timesheet.submission==="Off Day") { %>
+            <%- include('../timesheets/offday.ejs') -%>
+         <% } else if(timesheet.submission==="Urgent Service Hours/Intervals") { %>
+            <%- include('../timesheets/urgent.ejs') -%>
+        <% } else if(timesheet.submission==="Missed DTS Submission (Training)") { %>
+            <%- include('../timesheets/missedTraining.ejs') -%>
+        <% } else if(timesheet.submission==="Missed DTS Submission (Certification/Production)") { %>
+            <%- include('../timesheets/missedCertification.ejs') -%>
+        <% } %>
+        </div>
+    </div>
+</div>

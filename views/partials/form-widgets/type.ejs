@@ -1,0 +1,21 @@
+<div class="form-group" id='submissionType'>
+    <label for="submission" required>Submission Type 
+        <i class="fas fa-info-circle" id='submission-info' data-toggle="popover" data-trigger='hover' data-html="true" title="Submission Types" data-content="
+        <b>Training:</b> Training in the virtual classroom (Phase 1)<br>
+        <b>Certification:</b> Training and taking calls/nesting (Phase 2/3)<br>
+        <b>Production:</b> Completed training/certification<br>
+        <b>Off Day:</b> Not scheduled to service<br>
+        <b>Urgent service hours/intervals:</b> Additional service hours outside of your selected schedule (red in Starmatic)<br>
+        <b>Missed DTS Submissions (Training):</b> Missed timesheet entry in training<br>
+        <b>Missed DTS Submissions (Certification/Production):</b> Missed timesheet entry in certification/production<br>
+        "></i>
+    </label>
+    <select class="form-control" name='submission' id='submission' required>
+        <option value="">Choose a Submission Type</option>
+        <% submissions.forEach(function(submission){ %>
+            <option value="<%= submission.submissionName %>">
+                <%= submission.submissionName %>
+            </option>
+        <% }) %>
+    </select>
+</div>

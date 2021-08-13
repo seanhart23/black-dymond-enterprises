@@ -1,0 +1,11 @@
+<div class="form-group" id='clientName'>
+    <label required>Which Client Are You Servicing?</label>
+    <select name='client' class="form-control" required>
+        <option value="">Select One</option>
+        <% clients.forEach(function(client){ %>
+            <option value="<%= client.clientName %>">
+                <%= client.clientName %>
+            </option>
+        <% }) %>
+    </select>
+</div>

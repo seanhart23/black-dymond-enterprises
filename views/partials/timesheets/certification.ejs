@@ -1,0 +1,141 @@
+<div class='section'>
+    <div class='row'>
+        <div class='col-lg-6'>
+            <table class='timesheetClass'>
+                <tr class='label'>
+                    <td>Which hours/intervals did you service today?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.timesheetHours %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>What is the total number of hours/intervals you serviced today?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.totalHours %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Did you miss any scheduled hours/intervals?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.didYouMiss %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Please explain what caused you to miss your scheduled hours/intervals</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.explainWhy %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Did you attempt to SWAP the hours/intervals you were not able to service?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.swap %>
+                    </td>
+                </tr>
+                <tr class='label'>
+                    <td>Was the SWAP granted?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.swapGranted %>
+                    </td>
+                </tr>
+                <tr class='label'>
+                    <td>Did you RELEASE any hours/intervals?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.didYouRelease %>
+                    </td>
+                </tr>
+                <tr class='label'>
+                    <td>Did you log in on time?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.loginOnTime %>
+                    </td>
+                </tr>
+                <tr class='label'>
+                    <td>I did not log in on time because...</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.reason %>
+                    </td>
+                </tr>
+                <tr class='label'>
+                    <td>Did you log out on time?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.logoutOnTime %>
+                    </td>
+                </tr>
+                <tr class='label'>
+                    <td>I did not log out on time because...</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.logoutReason %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class='col-lg-6'>
+            <table class='timesheetTicket'>
+
+                <tr>
+                    <td class='label'>Did you receive a ticket/incident number from AVA/Tech Support today?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.recieveTicket %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>AVA/Technical Support: Ticket/Incident Number</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.ticketNumber %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Explain the technical issue you are experiencing</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.explainIssue %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Supporting Documents</td>
+                </tr>
+                <tr>
+                    <td><a href='/images/uploads/<%= timesheet.attachment %>' target='_blank'>
+                            <%= timesheet.attachment %>
+                        </a></td>
+                </tr>
+                <tr class='label'>
+                    <td>Validation Statement</td>
+                </tr>
+                <tr>
+                    <td>
+                        <%= timesheet.validation %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

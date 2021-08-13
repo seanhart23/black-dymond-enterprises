@@ -1,0 +1,56 @@
+<div id='time-tracking'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-lg-11'>
+                <div id='date-box'>
+                    <div id='date'></div>
+                </div>
+                <h3>The Benefits of the APBDE Daily Time Sheet(DTS)</h3>
+                <p>The DTS can be used for documentation purposes in the event of discrepencies with pay or hours/intervals serviced. This information will be used in conjunction with reports generated from Starmatic.</p>
+                <p><b>For a more in depth example:</b> If you have a direct deposit, invoice, or commitment adherence issue, we utilize what is submitted through your DTS as an additional means of coverage on your behalf should we ever need to address Arise on your behalf. This extra form of security can only be utilized in your favor if it is submitted daily and accurately. Each agent is responsible for accurately reporting their own schedule as a backup system check, so that the Payroll Department will be able to ensure that all agents recieve correct pay.</p>
+            </div>
+        </div>
+
+        <!-- FORM FOR TIMESHEET TRACKING SUBMISSION -->
+        <form action='/timesheets' method='POST' enctype="multipart/form-data" action="send">
+            <div class='row'>
+                <div class='col-lg-5'>
+                    <div class='title'>Employee Information</div><hr>
+                    <div class="form-group">
+                        <label>Employee Name</label>
+                        <input type="text" class="form-control" value='<%= currentUser.firstName %> <%= currentUser.lastName %>'  readonly>
+                    </div>
+                    <%- include('../form-widgets/associateId.ejs') -%>
+                </div>
+                <div class='col-lg-6'>
+                    <div class='title'>Timesheet Details</div><hr>
+                    <div id='timesheetForm'>
+                            <%- include('../form-widgets/client.ejs') -%>
+                            <%- include('../form-widgets/type.ejs') -%>
+                            <%- include('../form-widgets/missedclassdate.ejs') -%>
+                            <%- include('../form-widgets/howwasclass.ejs') -%>
+                            <%- include('../form-widgets/urgent.ejs') -%>
+                            <%- include('../form-widgets/classtime.ejs') -%>
+                            <%- include('../form-widgets/didyouattend.ejs') -%>
+                            <%- include('../form-widgets/timesheet.ejs') -%>
+                            <%- include('../form-widgets/totalhours.ejs') -%>
+                            <%- include('../form-widgets/didyoumiss.ejs') -%>
+                            <%- include('../form-widgets/swap.ejs') -%>
+                            <%- include('../form-widgets/release.ejs') -%>
+                            <%- include('../form-widgets/login.ejs') -%>
+                            <%- include('../form-widgets/logout.ejs') -%>
+                            <%- include('../form-widgets/didyouvisit.ejs') -%>
+                            <%- include('../form-widgets/didyourecieve.ejs') -%>
+                            <%- include('../form-widgets/explainissue.ejs') -%>
+                            <%- include('../form-widgets/upload.ejs') -%>
+                            <%- include('../form-widgets/additionalinfo.ejs') -%>
+                            <%- include('../form-widgets/validation.ejs') -%> 
+                        </div>
+                        <button type='submit' id='submit' class='hide'>Submit Timesheet</button>
+                    </div>
+                </div>
+                <div class='col-lg-1'></div>
+            </div>
+        </form>
+    </div>
+</div>
