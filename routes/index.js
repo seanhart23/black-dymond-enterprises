@@ -19,7 +19,7 @@ var express        = require('express'),
     ticket         = require('../models/ticket'),
     alert          = require('../models/alert'),
     link           = require('../models/links'),
-    serviceType    = require('../models/servicetype'),
+    serviceType    = require('../models/serviceType'),
     pdf            = require('../models/pdf'),
     url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
