@@ -1,0 +1,9 @@
+<div class="form-group" id='clientName'>
+    <label required>Service Type</label>
+    <select name='serviceType' class="form-control" required>
+        <option value="">Select One</option>
+        <% serviceType.forEach(function(serviceType){ %>
+            <option><%= serviceType.serviceType %></option>
+        <% }) %>
+    </select>
+</div>

@@ -15,6 +15,12 @@ var express        = require('express'),
     submission     = require('../models/submission'),
     timesheet      = require('../models/timesheet'),
     User           = require('../models/user'),
+    Payroll        = require('../models/payroll'),
+    ticket         = require('../models/ticket'),
+    alert          = require('../models/alert'),
+    link           = require('../models/links'),
+    serviceType    = require('../models/servicetype'),
+    pdf            = require('../models/pdf'),
     url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
         useNewUrlParser: true,
@@ -42,12 +48,18 @@ router.get('/', function (req, res) {
 router.get('/dashboard', middleware.isLoggedIn, function (req, res) {
     client.find({}, function (err, allClients) {
         submission.find({}, function (err, allSubmissions) {
+            alert.find({}, function (err, allAlerts) {
+                link.find({}, function (err, allLinks) {
+                    pdf.find({}, function (err, allPdfs) {
             if (err) {
                 console.log(err);
             } else {
-                res.render("dashboard", { clients: allClients, submissions: allSubmissions });
+                res.render("dashboard", { clients: allClients, submissions: allSubmissions, alerts: allAlerts, links: allLinks, pdfs: allPdfs });
             }
         })
+        })
+    })
+    })
     })
 });
 
@@ -113,6 +125,7 @@ router.get('/logout', function (req, res) {
     res.redirect('login');
 });
 
+/** CLIENT ROUTES */
 router.post('/clients', middleware.isLoggedIn, (req, res) => {
     var newClient = {
         clientName: req.body.clientName,
@@ -123,11 +136,22 @@ router.post('/clients', middleware.isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.redirect("/dashboard");
+            res.redirect("/clients");
         }
     });
 })
 
+router.delete('/clients/:id', middleware.isLoggedIn, function (req, res) {
+    client.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/clients');
+        } else {
+            res.redirect('/clients');
+        }
+    });
+});
+
+/** SUBMISSION ROUTES */
 router.post('/submission', middleware.isLoggedIn, (req, res) => {
     var newSubmission = {
         submissionName: req.body.submissionName,
@@ -138,10 +162,20 @@ router.post('/submission', middleware.isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.redirect("/dashboard");
+            res.redirect("/submissions");
         }
     });
 })
+
+router.delete('/submission/:id', middleware.isLoggedIn, function (req, res) {
+    submission.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/submissions');
+        } else {
+            res.redirect('/submissions');
+        }
+    });
+});
 
 /** TIMESHEET ROUTES */
 router.get('/timesheets', middleware.isLoggedIn, function (req, res) {
@@ -264,6 +298,7 @@ router.post('/timesheets', uploadStorage.single("upload"), middleware.isLoggedIn
 });
 
 
+/** USER ROUTES */
 router.post('/register', middleware.isLoggedIn, (req, res) => {
     var newUser = new User({
             username: req.body.username,
@@ -287,5 +322,294 @@ router.post('/register', middleware.isLoggedIn, (req, res) => {
         });
     });
 
+router.get('/edituser/:id', middleware.isLoggedIn, function (req, res) {
+    User.findById(req.params.id, function (err, foundUser) {
+        client.find({}, function (err, allClients) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("edituser", { user: foundUser, clients: allClients });
+            }
+        });
+    });
+});
 
+router.put('/edituser/:id', middleware.isLoggedIn, function (req, res) {
+    mongoose.connect(url, function (err, db) {
+        if (err) throw err;
+        var newvalues = { $set: {username: req.body.username, cspid: req.body.cspid, firstName: req.body.firstName, lastName: req.body.lastName, hireDate: req.body.hireDate, phone: req.body.phone, email: req.body.email, cca: req.body.cca, role: req.body.role}};
+        db.collection("users").updateOne({ cspid: req.body.cspid }, newvalues, function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('User Updated')
+            }
+        });
+    })
+    res.redirect('/manage');
+});
+
+router.delete('/edituser/:id', middleware.isLoggedIn, function (req, res) {
+    User.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/manage');
+        } else {
+            res.redirect('/manage');
+        }
+    });
+});
+
+/** PAYROLL ROUTES */
+
+router.get('/uploadpayroll', middleware.isLoggedIn, (req, res) => {
+    User.find({}, function (err, allUsers) {
+        timesheet.find({}, function (err, allTimesheets) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("uploadPayroll", { users: allUsers, timesheets: allTimesheets });
+            }
+        })
+    })
+});
+
+router.post('/uploadpayroll', uploadStorage.single("upload"), middleware.isLoggedIn, (req, res) => {
+    var newPayroll = new Payroll({
+        cspid: req.body.cspid,
+        attachment: req.file.originalname,
+    })
+
+    Payroll.create(newPayroll, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/dashboard");
+        }
+    });
+});
+
+router.get('/viewpayroll', middleware.isLoggedIn, (req, res) => {
+    User.find({}, function (err, allUsers) {
+        Payroll.find({}, function (err, allPayrolls) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("viewPayroll", { users: allUsers, payrolls: allPayrolls });
+            }
+        })
+    })
+});
+
+/** TICKET ROUTES */
+
+router.get('/ticketentry', middleware.isLoggedIn, (req, res) => {
+    serviceType.find({}, function (err, allServiceTypes) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("ticketentry", { serviceType: allServiceTypes });
+        }
+    })
+});
+
+router.get('/ticketreporting', middleware.isLoggedIn, (req, res) => {
+    User.find({}, function (err, allUsers) {
+        ticket.find({}, function (err, allTickets) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("ticketreporting", { users: allUsers, tickets: allTickets });
+            }
+        })
+    })
+});
+
+router.post('/ticketEntry', uploadStorage.single("upload"), middleware.isLoggedIn, function (req, res) {
+    if (req.file != undefined) {
+        var newTicket = {
+            cspid: req.body.cspid,
+            date: req.body.dateofentry,
+            time: req.body.timeofentry,
+            serviceType: req.body.serviceType,
+            additionalDetails: req.body.additionalDetails,
+            ticketNumber: req.body.ticketNumber,
+            attachment: req.file.originalname
+        }
+    } else {
+        var newTicket = {
+            cspid: req.body.cspid,
+            date: req.body.dateofentry,
+            time: req.body.timeofentry,
+            serviceType: req.body.serviceType,
+            additionalDetails: req.body.additionalDetails,
+            ticketNumber: req.body.ticketNumber,
+        }
+    }
+
+    ticket.create(newTicket, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/ticketEntry");
+        }
+    });
+});
+
+router.get('/ticketview/:id', middleware.isLoggedIn, function (req, res) {
+    ticket.findById(req.params.id, function (err, foundTicket) {
+        User.find({}, function (err, allUsers) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("ticketview", { ticket: foundTicket, users: allUsers });
+            }
+        });
+    });
+});
+
+/** ALERTS */
+router.get('/alerts', middleware.isLoggedIn, (req, res) => {
+    alert.find({}, function (err, allAlerts) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("alerts", { alerts: allAlerts });
+        }
+    })
+})
+
+
+router.post('/alerts', middleware.isLoggedIn, (req, res) => {
+    var newAlert = new alert({
+        alert: req.body.alert,
+        priority: req.body.priority,
+    })
+
+    alert.create(newAlert, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/alerts");
+        }
+    });
+});
+
+router.delete('/alerts/:id', middleware.isLoggedIn, function (req, res) {
+    alert.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/alerts');
+        } else {
+            res.redirect('/alerts');
+        }
+    });
+});
+
+/** LINKS */
+router.get('/links', middleware.isLoggedIn, (req, res) => {
+    link.find({}, function (err, allLinks) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("links", { links: allLinks });
+        }
+    })
+})
+
+
+router.post('/links', middleware.isLoggedIn, (req, res) => {
+    var newLink = new link({
+        url: req.body.url,
+        title: req.body.title,
+    })
+
+    link.create(newLink, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/links");
+        }
+    });
+});
+
+router.delete('/links/:id', middleware.isLoggedIn, function (req, res) {
+    link.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/links');
+        } else {
+            res.redirect('/links');
+        }
+    });
+});
+
+/** PDF's */
+router.get('/pdfs', middleware.isLoggedIn, (req, res) => {
+    pdf.find({}, function (err, allPdfs) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("pdfs", { pdfs: allPdfs });
+        }
+    })
+})
+
+
+router.post('/pdfs',uploadStorage.single("upload"), middleware.isLoggedIn, (req, res) => {
+    var newPdf = new pdf({
+        title: req.body.title,
+        attachment: req.file.originalname,
+    })
+
+    pdf.create(newPdf, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/pdfs");
+        }
+    });
+});
+
+router.delete('/pdfs/:id', middleware.isLoggedIn, function (req, res) {
+    pdf.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/pdfs');
+        } else {
+            res.redirect('/pdfs');
+        }
+    });
+});
+
+/** SERVICE TYPES */
+router.post('/servicetype', middleware.isLoggedIn, (req, res) => {
+    var newServiceType = {
+        serviceType: req.body.name,
+    };
+
+    serviceType.create(newServiceType, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/servicetype");
+        }
+    });
+})
+
+router.delete('/servicetype/:id', middleware.isLoggedIn, function (req, res) {
+    serviceType.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/servicetype');
+        } else {
+            res.redirect('/servicetype');
+        }
+    });
+});
+
+router.get('/servicetype', middleware.isLoggedIn, function (req, res) {
+        serviceType.find({}, function (err, allServicetypes) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("servicetype", { serviceType: allServicetypes });
+            }
+        })
+});
 module.exports = router;

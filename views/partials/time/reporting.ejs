@@ -1,23 +1,39 @@
-<h1>Timesheet Reporting</h1>
-<hr>
-<table id='timesheets'>
+<div class='title'>Daily Timesheet Reporting</div>
+
+<div class='filters'>
+    <h4>Filter</h4>
+    <hr>
+    <select class='form-control' id='filter-employee'>
+        <option selected disabled>Select an Employee</option>
+        <option value=''></option>
+        <% users.forEach(function(user){ %>
+            <option value='<%= user.cspid %>'>
+                <%= user.lastName %>, <%= user.firstName %>
+            </option>
+            <% }) %>
+    </select>
+    <button id='clear'>Clear Filters</button>
+    <br><br>
+</div>
+       
+    <table id='timesheets'>
     <tr>
         <th>Date Submitted</th>
         <th>Time Submitted</th>
-        <th>Timesheet ID</th>
         <th>CSPID</th>
         <th>Last Name</th>
         <th>First Name</th>
         <th>Type</th>
-        <th>Delete Timesheet</th>
+        <th>View</th>
+        <th>Delete</th>
     </tr>
+    <tbody id='ts-list'>
         <% timesheets.forEach(function(timesheet){ %>
             <% var date = timesheet.created.toLocaleDateString() %>
             <% var time = timesheet.created.toLocaleTimeString() %>
         <tr>
             <td><%= date %></td>
             <td><%= time %></td>
-            <td><a href='/timesheetview/<%= timesheet._id %>'><%= timesheet._id %></a></td>
             <td><%= timesheet.cspid %></td>
         <% users.forEach(function(user){ %>
             <% if(user.cspid === timesheet.cspid){ %>
@@ -26,6 +42,7 @@
             <% } %>
         <% }) %>
             <td><%= timesheet.submission %></td>
+                <td><a href='/timesheetview/<%= timesheet._id %>'>View</a></td>
             <td>
                 <form action="/timesheet/<%= timesheet._id %>?_method=DELETE" method="POST" class="delete-form">
                     <button class='btn btn-sm' id='deleteButton'>Delete</button>
@@ -33,5 +50,6 @@
             </td>
         </tr>
         <% }) %>
+        </tbody>
 </table>
 </div>

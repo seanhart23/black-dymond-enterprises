@@ -1,0 +1,58 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <div class='col-lg-10' id='right'>
+                    <!-- <div class='title'>Manage Important Documents</div> -->
+                    <div class='row'>
+                        <div class='col-lg-6'>
+                            <div class='title'>Add Important Documents</div>
+                            <form action='/pdfs' method='POST' enctype="multipart/form-data" action="send">
+                                <div class="form-group" id='title'>
+                                    <label>Document Title</label>
+                                    <input type="text" class="form-control" name="title" placeholder='Document Title'></input>
+                                </div>
+                                <div class="form-group" id='upload'>
+                                    <label for="upload">Attach Document</label>
+                                    <input type="file" class="form-control-file" name='upload'>
+                                </div>
+                                <button type='submit' id='submit'>Post Document</button>
+                            </form>
+                        </div>
+                        <div class='col-lg-6'>
+                            <div class='title'>Important Documents</div>
+                            <table class='important-link'>
+                                <tr>
+                                    <th>Document Title</th>
+                                    <th>View</th>
+                                    <th>Delete</th>
+                                </tr>
+                                <% pdfs.forEach(function(pdf){ %>
+                                    <tr>
+                                        <td>
+                                            <%= pdf.title %>
+                                        </td>
+                                        <td><a href='../images/uploads/<%= pdf.attachment %>' target='_blank'>
+                                                View
+                                            </a></td>
+                                        <td>
+                                            <form action="/pdfs/<%= pdf._id %>?_method=DELETE" method="POST"
+                                                class="delete-form">
+                                                <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                        </div>
+                        <% }) %>
+                            </table>
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

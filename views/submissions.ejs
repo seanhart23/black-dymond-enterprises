@@ -7,23 +7,35 @@
                 </div>
                 <% if(currentUser.role==="Admin" ){ %>
                 <div class='col-lg-5' id='right'>
-                <h5>Add a Submission Type</h5>
-                <hr>
+                <div class='title'>Add a Submission Type</div>
                 <form action='/submission' method='POST' action="send" id='add-submission'>
                     <div class='form-group'>
-                        <input class='form-control' type='text' name='submissionName'></input>
+                        <input class='form-control' type='text' name='submissionName' placeholder='Submission Name'></input>
                     </div>
                     <button type='submit'>Add</button>
                 </form><br>
                 </div>
                 <div class='col-lg-5' id='right'>
-                    <h5>Submission Types</h5>
-                    <hr>
-                    <% submissions.forEach(function(submission){ %>
-                        <li>
-                            <%= submission.submissionName %>
-                        </li>
+                    <div class='title'>Manage Submission Types</div>
+                    <table>
+                        <tr>
+                            <th>Submission Name</th>
+                            <th>Delete</th>
+                        </tr>
+                        <% submissions.forEach(function(submission){ %>
+                        <tr>
+                            <td>
+                                <%= submission.submissionName %>
+                            </td>
+                            <td>
+                                <form action="/submission/<%= submission._id %>?_method=DELETE" method="POST" class="delete-form">
+                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                </form>
+                            </td>
+                            </tr>
                         <% }) %>
+                    </table>
+                    
                     </div>
                 </div>
                 <% } else { %>

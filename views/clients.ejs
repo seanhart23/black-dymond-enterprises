@@ -7,24 +7,35 @@
             </div>
             <% if(currentUser.role==="Admin" ){ %>
             <div class='col-lg-5' id='right'>
-                <h5>Add a Client</h5>
-                <hr>
+                <div class='title'>Add a Client</div>
                 <form action='/clients' method='POST' action="send" id='add-client'>
                     <div class='form-group'>
-                        <input class='form-control' type='text' name='clientName'></input>
+                        <input class='form-control' type='text' name='clientName' placeholder='Client Name'></input>
                     </div>
                     <button type='submit'>Add</button>
                 </form>
                 <br>
             </div>
             <div class='col-lg-5' id='right'>
-                <h5>Clients</h5>
-                <hr>
-                <% clients.forEach(function(client){ %>
-                    <li>
-                        <%= client.clientName %>
-                    </li>
-                <% }) %>
+                <div class='title'>Manage Clients</div>
+                <table>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Delete</th>
+                    </tr>
+                    <% clients.forEach(function(client){ %>
+                        <tr>
+                            <td>
+                                <%= client.clientName %>
+                            </td>
+                            <td>
+                                <form action="/clients/<%= client._id %>?_method=DELETE" method="POST" class="delete-form">
+                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </table>
             </div>
             <% } else { %>
                 <div class='col-lg-10' id='right'>

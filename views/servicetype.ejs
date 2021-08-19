@@ -1,0 +1,50 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <% if(currentUser.role==="Admin" ){ %>
+                    <div class='col-lg-5' id='right'>
+                        <div class='title'>Add a Service Type</div>
+                        <form action='/servicetype' method='POST' action="send" id='add-submission'>
+                            <div class='form-group'>
+                                <input class='form-control' type='text' name='name'
+                                    placeholder='Service Type'></input>
+                            </div>
+                            <button type='submit'>Add</button>
+                        </form><br>
+                    </div>
+                    <div class='col-lg-5' id='right'>
+                        <div class='title'>Manage Service Types</div>
+                        <table>
+                            <tr>
+                                <th>Service Type</th>
+                                <th>Delete</th>
+                            </tr>
+                            <% serviceType.forEach(function(serviceType){ %>
+                                <tr>
+                                    <td>
+                                        <%= serviceType.serviceType %>
+                                    </td>
+                                    <td>
+                                        <form action="/servicetype/<%= serviceType._id %>?_method=DELETE" method="POST"
+                                            class="delete-form">
+                                            <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </table>
+
+                    </div>
+            </div>
+            <% } else { %>
+                <div class='col-lg-10' id='right'>
+                    <h1>Nice Try! You need to be an admin to access this page.</h1>
+                </div>
+                <% } %>
+    </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

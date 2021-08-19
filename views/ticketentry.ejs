@@ -1,0 +1,31 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <div class='col-lg-10' id='right'>
+                    <div class='title'>Employee Self Service Ticket System</div>
+                    <p class='padding-left'>Fill out the form below to submit a Service ticket and you will be receiving email correspondence with an update once
+                    your ticket has been assigned and reviewed. Please allow 24 - 48 hours at most for a response to your ticket. You may
+                    reach out to Human Resources or Tech Support to request an update on your ticket.</p>
+                    <div class='row'>
+                        <div class='col-lg-7'>
+                        <form action='/ticketentry' method='POST' enctype="multipart/form-data" action="send">
+                            <%- include('./partials/form-widgets/dateofentry.ejs') -%>
+                            <%- include('./partials/form-widgets/timeofentry.ejs') -%>
+                            <%- include('./partials/form-widgets/associateid.ejs') -%>
+                            <%- include('./partials/form-widgets/servicetype.ejs') -%>
+                            <%- include('./partials/form-widgets/additionaldetails.ejs') -%>
+                            <%- include('./partials/form-widgets/ticketnumber.ejs') -%>
+                            <%- include('./partials/form-widgets/upload.ejs') -%>
+                            <button type='submit' id='submit'>Submit Ticket</button>
+                        </form>
+                        </div>
+                        <div class='col-lg-5'></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

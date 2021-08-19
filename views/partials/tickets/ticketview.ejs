@@ -1,0 +1,81 @@
+<div class='timesheet-layout'>
+    <div class='title'>Ticket Overview</div>
+    <div class='timesheet-body'>
+        <div class='row'>
+            <div class='col-lg-6'>
+                <table class='ticketview'>
+                    <tr>
+                        <td class='label'>Employee Name:</td>
+                        <% users.forEach(function(user){ %>
+                            <% if(user.cspid===ticket.cspid){ %>
+                                <td>
+                                    <%= user.firstName %>
+                                        <%= user.lastName %>
+                                </td>
+                              
+                    </tr>
+                    <tr>
+                        <td class='label'>CSPID:</td>
+                        <td>
+                            <%= ticket.cspid %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Email:</td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Phone:</td>
+                        <td>
+                            <%= user.phone %>
+                        </td>
+                    </tr>
+                        <% } %>
+                        <% }) %>
+                </table>
+                <br>
+                <br>
+                <table class='ticketview'>
+                    <tr>
+                        <td class='label'>Service Type:</td>
+                        <td>
+                            <%= ticket.serviceType %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Attachment:</td>
+                        <td>
+                            <a href='/images/uploads/<%= ticket.attachment %>' target='_blank'><%= ticket.attachment %></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Additional Details:</td>
+                        <td>
+                            <%= ticket.additionalDetails %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class='col-lg-6'>
+                <table class='ticketview'>
+                    <tr>
+                        <td class='label'>Date Submitted:</td>
+                                <td>
+                                    <%= ticket.date.toLocaleString() %>
+                                </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Time Submitted:</td>
+                        <td>
+                            <%= ticket.time.toLocaleString() %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+</div>

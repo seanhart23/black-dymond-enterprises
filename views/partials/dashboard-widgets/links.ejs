@@ -1,0 +1,9 @@
+<div class='widget'>
+    <div class='widget-header'>Important Links</div>
+    <hr>
+    <ul>
+        <% links.forEach(function(link){ %>
+            <li><a href='<%= link.url %>'><%= link.title %></a></li>
+        <% }) %>
+    </ul>
+</div>

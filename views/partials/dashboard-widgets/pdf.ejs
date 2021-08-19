@@ -1,0 +1,11 @@
+<div class='widget'>
+    <div class='widget-header'>Important Documents</div>
+    <hr>
+    <ul>
+        <% pdfs.forEach(function(pdf){ %>
+            <li><a href='./images/uploads/<%= pdf.attachment %>'>
+                    <%= pdf.title %>
+                </a></li>
+            <% }) %>
+    </ul>
+</div>

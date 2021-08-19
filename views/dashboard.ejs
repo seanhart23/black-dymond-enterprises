@@ -5,10 +5,29 @@
                 <div class='col-lg-2' id='left'>
                     <%- include('./partials/global/menu.ejs') -%>
                 </div>
-                <div class='col-lg-5' id='right'>
-                    <h1>This is the dashboard</h1>
+                <div class='col-lg-10'>
+                    <div id='banner'>
+                    </div>
+                    <div class='row'>
+                        <div class='col-lg-12' id='right'>
+                            <% alerts.forEach(function(alert){ %>
+                                <div class='alert-preview'>
+                                    <%= alert.alert %>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <div class='row'>
+                            <div class='col-lg-6' id=''>
+                                <%- include('./partials/dashboard-widgets/missionstatement.ejs') -%>
+                                <%- include('./partials/dashboard-widgets/links.ejs') -%>
+                                <%- include('./partials/dashboard-widgets/pdf.ejs') -%>
+                            </div>
+                            <div class='col-lg-6' id=''>
+                                <%- include('./partials/dashboard-widgets/dtsbenefits.ejs') -%>
+                            </div>
+                        </div>
                 </div>
-                <div class='col-lg-5'></div>
             </div>
     </div>
     <%- include('./partials/global/footer.ejs') -%>

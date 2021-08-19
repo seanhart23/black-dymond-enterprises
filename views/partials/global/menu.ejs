@@ -1,35 +1,71 @@
 <div id='menu'>
     <% if(currentUser.role === "Admin"){ %>
-        <div class='menu-link'>
+        <div class='menu-link main'>
             <a href='/dashboard'>Dashboard</a>
         </div>
         <div class='menu-link'>
-            <a href='/timesheets'>Time Sheet Entry</a>
+            <span class='menu-title'>DTS | DAILY TIME SHEET</span>
+        </div>
+        <div class='menu-link sub'>
+            <a href='/timesheets'>DTS Entry</a>
+        </div>
+        <div class='menu-link sub'>
+            <a href='/timesheetreporting'>DTS Reporting</a>
         </div>
         <div class='menu-link'>
-            <a href='/timesheetreporting'>Time Sheet Reporting</a>
+            <span class='menu-title'>PAYROLL</span>
+        </div>
+        <div class='menu-link sub'>
+            <a href='/viewpayroll'>View Invoices</a>
+        </div>
+        <div class='menu-link sub'>
+            <a href='/uploadPayroll'>Upload Invoice</a>
         </div>
         <div class='menu-link'>
-            <a href='/clients'>Manage Clients</a>
+            <span class='menu-title'>TICKETS</span>
         </div>
+                <div class='menu-link sub'>
+                    <a href='/ticketentry'>Enter Ticket</a>
+                </div>
+                <div class='menu-link sub'>
+                    <a href='/ticketreporting'>Review Tickets</a>
+                </div>
         <div class='menu-link'>
-            <a href='/submissions'>Manage Submission Types</a>
+            <span class='menu-title'>MANAGE</span>
         </div>
-        <div class='menu-link'>
-            <a href='/register'>Add Employee</a>
-        </div>
-        <div class='menu-link'>
-            <a href='/manage'>Manage Employees</a>
-        </div>
+            <div class='menu-link sub'>
+                <a href='/manage'>AERS</a>
+            </div>
+            <div class='menu-link sub'>
+                <a href='/clients'>Clients</a>
+            </div>
+            <div class='menu-link sub'>
+                <a href='/submissions'>Submission Types</a>
+            </div>
+            <div class='menu-link sub'>
+                <a href='/servicetype'>Service Types</a>
+            </div>
+            <div class='menu-link sub'>
+                <a href='/alerts'>Alerts</a>
+            </div>
+            <div class='menu-link sub'>
+                <a href='/links'>Important Links</a>
+            </div>
+            <div class='menu-link sub'>
+                <a href='/pdfs'>PDF Links</a>
+            </div>
     <% } else { %>
-        <div class='menu-link'>
+        <div class='menu-link main'>
             <a href='/dashboard'>Dashboard</a>
         </div>
-        <div class='menu-link'>
-            <a href='/timesheets'>Time Sheet Entry</a>
+        <div class='menu-link main'>
+            <a href='/timesheets'>DTS | Daily Time Sheet</a>
         </div>
-        <div class='menu-link'>
-            <a href='#'>Ticket Tracking</a>
+        <div class='menu-link main'>
+            <a href='/viewpayroll'>Payroll Invoices</a>
+        </div>
+        <div class='menu-link main'>
+            <a href='/ticketentry'>Enter Ticket</a>
         </div>
     <% } %>
 </div>

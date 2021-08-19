@@ -1,0 +1,100 @@
+
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <% if(currentUser.role==="Admin" ){ %>
+                    <div class='col-lg-10' id='right'>
+                        <div class='title'>Edit Employee Profile</div>
+                        <hr>
+                        <form action="/edituser/<%= user._id %>?_method=PUT" method="post">
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="username" value='<%= user.username %>'
+                                        required>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="cspid" value='<%= user.cspid %>' required>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="firstName" value='<%= user.firstName %>'
+                                        required>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="lastName" value='<%= user.lastName %>'
+                                        required>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="email" class="form-control" name="email" value='<%= user.email %>'>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="tel" class="form-control" name="phone" value='<%= user.phone %>'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')"
+                                        class="form-control" name="hireDate" value='<%= user.hireDate %>'>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="cca"
+                                        value='<%= user.cca %>'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <select class="form-control" name="role">
+                                        <option value='<%= user.role %>' selected>
+                                            <%= user.role %>
+                                        </option>
+                                        <option>Admin</option>
+                                        <option>Employee</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <select class="form-control" name='client' id='client'>
+                                        <option value='<%= user.client %>' selected><%= user.client %>
+                                            </option>
+                                        <% clients.forEach(function(client){ %>
+                                            <option value="<%= client.clientName %>">
+                                                <%= client.clientName %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                 
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="id" value='<%= user._id %>' hidden>
+                                </div>
+                            </div>
+
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                 
+                                </div>
+                                <div class="form-group col-md-7">
+                                </div>
+                                <div>
+                                    <button type="submit">Update</button>
+                        </form>
+                    </div>
+                    <% } else { %>
+                        <div class='col-lg-10' id='right'>
+                            <h1>Nice Try! You need to be an admin to access this page.</h1>
+                        </div>
+                        <% } %>
+
+            </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

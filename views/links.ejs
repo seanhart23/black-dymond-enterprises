@@ -1,0 +1,53 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <div class='col-lg-10' id='right'>
+                    <!-- <div class='title'>Manage Important Links</div> -->
+                    <div class='row'>
+                        <div class='col-lg-6'>
+                            <div class='title'>Add Important Link</div>
+                            <form action='/links' method='POST' action="send">
+                                <div class="form-group" id='url'>
+                                    <label>URL</label>
+                                    <input type="text" class="form-control" name="url" placeholder='URL'></input>
+                                </div>
+                                <div class="form-group" id='title'>
+                                    <label>Link Text</label>
+                                    <input type="text" class="form-control" name="title" placeholder='Link Text'></input>
+                                </div>
+                                <button type='submit' id='submit'>Post Link</button>
+                            </form>
+                        </div>
+                        <div class='col-lg-6'>
+                            <div class='title'>Important Links</div>
+                            <table class='important-link'>
+                                <tr>
+                                    <th>Link Text</th>
+                                    <th>Link URL</th>
+                                    <th>Delete</th>
+                                </tr>
+                            <% links.forEach(function(link){ %>
+                                    <tr>
+                                        <td><a href='<%= link.url %>' target='_blank'><%= link.title %></a></td>
+                                        <td><%= link.url %></td>
+                                        <td>
+                                        <form action="/links/<%= link._id %>?_method=DELETE" method="POST" class="delete-form">
+                                            <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                        </form>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <% }) %>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

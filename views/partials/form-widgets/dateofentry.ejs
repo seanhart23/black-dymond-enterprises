@@ -1,0 +1,10 @@
+<div class="form-group" id='dateofentry'>
+    <label>Date of Ticket Entry</label><br>
+    <div class="input-group date" data-provide="datepicker">
+        <% let today = new Date().toISOString().substr(0, 10); %>
+        <input type="date" name='dateofentry' class="form-control" value='<%= today %>' readonly>
+        <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+        </div>
+    </div>
+</div>

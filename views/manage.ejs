@@ -7,12 +7,10 @@
                 </div>
                 <% if(currentUser.role==="Admin" ){ %>
                     <div class='col-lg-10' id='right'>
-                        <h5>Employees</h5>
-                        <hr>
+                        <div class='title'>Employees</div>
                         <table id='employees'>
                             <tr>
                                 <th>CSPID</th>
-                                <th>Role</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Username</th>
@@ -20,15 +18,15 @@
                                 <th>Phone</th>
                                 <th>Hire Date</th>
                                 <th>Client</th>
+                                <th>Role</th>
                                 <th>CCA</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                         <% Users.forEach(function(User){ %>
                             <tr>
                             <td>
                                 <%= User.cspid %>
-                            </td>
-                            <td>
-                                <%= User.role %>
                             </td>
                             <td>
                                 <%= User.firstName %>
@@ -52,7 +50,18 @@
                                 <%= User.client %>
                             </td>
                             <td>
+                                <%= User.role %>
+                            </td>
+                            <td>
                                 <%= User.cca %>
+                            </td>
+                            <td>
+                                <a href='./edituser/<%= User._id %>'>Edit</a>
+                            </td>
+                            <td>
+                                <form action="/edituser/<%= User._id %>?_method=DELETE" method="POST" class="delete-form">
+                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                </form>
                             </td>
                             </tr>
                         <% }) %>

@@ -6,6 +6,26 @@ a {
     margin-top: 25px;
 }
 
+.alert-preview {
+    width: 100%;
+    border: 1px solid darkblue;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px gray;
+    background: lightblue;
+    color: darkblue;
+}
+
+#background {
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-position: 95% 20%;
+    min-height: 100vh;
+}
+
+
+
 body {
     font-weight: 300;
     padding: 0px!important;
@@ -21,28 +41,31 @@ button {
 }
 
 #date {
-    font-size: 36px;
+    font-size: 24px;
 }
 
 #date-box {
     width: 100%;
-    background: rgba(36, 60, 117, .8);
+    background-color: rgb(199, 0, 0)!important;
     color: white;
     height: auto;
-    padding: 10px 20px;
+    padding: 5px 20px;
     margin-top: 100px;
     margin-bottom: 25px;
-    text-align: right;
+    text-align: right;    
+    box-shadow: 2px 2px 10px gray;
+    border-radius: 5px;
 }
 
 #deleteButton {
     margin: 0px;
     padding: 0px;
     color: red;
+    font-size: 12px;
 }
 
 #employees {
-    width: 80%;
+    width: 100%;
     font-size: 12px;
 }
 
@@ -51,6 +74,11 @@ button {
     width: auto;
     border: 1px solid lightgray;
     padding-left: 5px;
+}
+
+#filter-employee {
+    width: 20%;
+    margin: 25px 0px;
 }
 
 .fa-sign-out-alt {
@@ -74,8 +102,9 @@ html {
     background: whitesmoke;
     min-height: 100vh;
     padding-top: 100px;
-    padding-left: 30px;
-    color: black;
+    padding-left: 20px;
+    color: white;
+    background: black;
     border-right: 1px solid lightgray;
 }
 
@@ -85,11 +114,12 @@ html {
     padding: 20px;
     border: 1px solid lightgray;
     margin: 25px auto;
-    box-shadow: 2px 2px 10px lightgray;
+    box-shadow: 0px 0px 20px black;
+    background: white;
 }
 
 #logo {
-    width: 10%;
+    width: 50%;
     margin: auto;
 }
 
@@ -97,18 +127,33 @@ html {
     width: 100%;
     text-align: center;
 }
+
+.main {
+    font-weight: bold;
+}
+
 #menu {
     /* position: fixed; */
+    width: 100%;
+    height: 100%;
+    padding-bottom: 100px;
 }
 
 .menu-link {
     padding: 10px 0px;
     z-index: 10;
-    font-size: 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
 
 .menu-link a {
-    color: gray;
+    color: white;
+    text-transform: uppercase;
+}
+
+.menu-title {
+    font-weight: bold;
+    width: 100%;
 }
 
 .navbar {
@@ -123,6 +168,12 @@ html {
 }
 .navbar-brand {
     color: white!important;
+    font-weight: 600;
+}
+
+.padding-left {
+    padding-left: 10px;
+    padding-right: 5px;
 }
 
 .popover{
@@ -146,6 +197,10 @@ html {
      color: gray;
 }
 
+.sub {
+    padding-left: 20px;
+}
+
 #submit {
     margin-top: 25px;
     margin-bottom: 100px;
@@ -160,12 +215,25 @@ html {
     /* margin-top: 30px; */
 }
 
-#timesheets {
-    width: 95%;
+table {
+    width: 100%;
+}
+
+td {
+    border: 1px solid lightgray;
+    padding-left: 5px;
+}
+
+#timesheetForm {
+    /* margin-bottom: 100px; */
+}
+
+#timesheets, #payroll {
+    width: 100%;
     font-size: 12px;
 }
 
-#timesheets td {
+#timesheets td,  #payroll td {
     text-align: left;
     width: auto;
     border: 1px solid lightgray;
@@ -201,12 +269,20 @@ html {
     width: 100%;
     text-align: left;
     margin-bottom: 20px;
+    background-color: rgb(199, 0, 0)!important;
+    color: white;
+    height: auto;
+    padding: 5px 20px;
+    margin-bottom: 25px;
+    box-shadow: 2px 2px 10px gray;
+    border-radius: 5px;
 }
 
 .tooltiptd {
     width: 150px;
     padding: 10px 5px;
 }
+
 #validation {
     background: lightgray;
     color: black;
@@ -217,4 +293,18 @@ html {
 #welcome {
     margin-right: 100px;
     color: white;
+}
+
+.widget {
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 10px gray;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.widget-header {
+    font-size: 20px;
+    font-weight: bold;
 }

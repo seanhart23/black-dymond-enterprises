@@ -1,0 +1,43 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <% if(currentUser.role==="Admin" ){ %>
+                    <div class='col-lg-10' id='right'>
+                    <div class='title'>Upload Payroll Invoices</div>
+                    <div class='col-lg-6' id=''>
+                        <form action='/uploadPayroll' enctype="multipart/form-data" method='POST'>
+                            <div class='form-row'>
+                                <div class="form-group col-md-10">
+                                    <select class="form-control" name='cspid' id='client'>
+                                        <option selected disabled>Choose an Employee</option>
+                                        <% users.forEach(function(user){ %>
+                                            <option value="<%= user.cspid %>">
+                                                <%= user.lastName %>, <%= user.firstName %> - <%= user.cspid %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="upload">Select Invoice to Upload</label>
+                                <input type="file" class="form-control-file" name='upload'>
+                            </div>
+                            <button type="submit">Upload Documents</button>
+                        </form>
+                    </div>
+                    <div class='col-lg-6' id='right'>
+                       
+                    </div>
+            </div>
+            <% } else { %>
+                <div class='col-lg-10' id='right'>
+                    <h1>Nice Try! You need to be an admin to access this page.</h1>
+                </div>
+                <% } %>
+    </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

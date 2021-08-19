@@ -1,0 +1,54 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <div class='col-lg-10' id='right'>
+<div class='title'>Ticket Reporting</div>
+<table id='tickets'>
+    <tr>
+        <th>Ticket ID</th>
+        <th>Date Submitted</th>
+        <th>Time Submitted</th>
+        <th>Submitted By</th>
+        <th>Service Type</th>
+        <th>Delete</th>
+    </tr>
+    <% tickets.forEach(function(ticket){ %>
+        <tr>
+            <td>
+                <a href='./ticketview/<%= ticket._id %>'><%= ticket._id %></a>
+            </td>
+            <td>
+                <%= ticket.date %>
+            </td>
+            <td>
+                <%= ticket.time %>
+            </td>
+            <% users.forEach(function(user){ %>
+                <% if(user.cspid===ticket.cspid){ %>
+                    <td>
+                        <%= user.lastName %>, <%= user.firstName %>
+                    </td>
+                    <% } %>
+                        <% }) %>
+                            <td>
+                                <%= ticket.serviceType %>
+                            </td>
+
+                            <td>
+                                <form action="/ticket/<%= ticket._id %>?_method=DELETE" method="POST"
+                                    class="delete-form">
+                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+            </table>
+        </div>                
+    </div>
+</div>
+</div>
+    <%- include('./partials/global/footer.ejs') -%>
