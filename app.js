@@ -37,7 +37,7 @@ app.use(function (req, res, next) {
 });
 
 /** ROUTES */
-var indexRoutes = require('./routes/index');
+var indexRoutes = require('./routes/index.js');
 
 /** REQUIRING ROUTE FILES USING EXPRESS ROUTER */
 app.use('/', indexRoutes);
