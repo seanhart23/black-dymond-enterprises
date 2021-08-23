@@ -11,6 +11,7 @@ var express        = require('express'),
     bodyParser     = require('body-parser'),
     passport       = require('passport'),
     mongoose       = require('mongoose'),
+    ObjectId       = require('mongodb').ObjectID,
     client         = require('../models/client'),
     submission     = require('../models/submission'),
     timesheet      = require('../models/timesheet'),
@@ -361,7 +362,7 @@ router.put('/edituser/:id', middleware.isLoggedIn, function (req, res) {
             zip: req.body.zip,
             country: req.body.country,
         }};
-        db.collection("users").updateOne({ cspid: req.body.cspid }, newvalues, function (err, res) {
+        db.collection("users").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
             if (err) {
                 console.log(err);
             } else {
@@ -518,7 +519,6 @@ router.get('/ticketview/:id', middleware.isLoggedIn, function (req, res) {
 
 router.put('/ticketentry/:id', middleware.isLoggedIn, function (req, res) {
     mongoose.connect(url, function (err, db) {
-        var ObjectId = require('mongodb').ObjectID;
         if (err) throw err;
         var newvalues = {
             $set: {

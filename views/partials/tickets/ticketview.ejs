@@ -83,6 +83,9 @@
                             </td>
                         </tr>
                         </table>
+                    </div>
+                    <div class='row'>
+                        <div class='col-lg-12'>
                         <form action="/ticketentry/<%= ticket._id %>?_method=PUT" method="post">
                             <br>
                             <div class='form-group'>
@@ -91,6 +94,9 @@
                                 <button type='submit'>Update Ticket</button>
                             </div>
                         </form>
+                        </div>
+                    </div>
+
                         <% } else { %>
                         <table class='ticketview'>
                             <tr>
