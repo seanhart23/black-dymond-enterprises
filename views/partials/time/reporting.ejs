@@ -1,19 +1,20 @@
 <div class='title'>Daily Timesheet Reporting</div>
 
 <div class='filters'>
-<div class="accordion" id="accordionExample">
-    <div class="card">
-        <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+<!-- <div class="accordion" id="accordionExample"> -->
+    <!-- <div class="card"> -->
+        <!-- <div class="card-header" id="headingOne"> -->
+            <!-- <h2 class="mb-0"> -->
+                <button type="button" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
                     Filters
                 </button>
-            </h2>
-        </div>
+                <p></p>
+            <!-- </h2> -->
+        <!-- </div> -->
 
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-            <div class="card-body">
+        <div class="collapse" id="collapseOne">
+            <div class="card card-body">
                 <select class='form-control' id='filter-employee'>
                     <option selected disabled>Select an Employee</option>
                     <% users.forEach(function(user){ %>
@@ -25,21 +26,19 @@
                 <button id='clear'>Clear Filters</button>
             </div>
         </div>
-    </div>
-</div>
+    <!-- </div> -->
+<!-- </div> -->
 </div>
 
 <br>
     <table id='timesheets'>
     <tr>
-        <th>Date Submitted</th>
-        <th>Time Submitted</th>
-        <th>CSPID</th>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Type</th>
-        <th>View</th>
-        <th>Delete</th>
+        <th class='date'>Date Submitted</th>
+        <th class='time'>Time Submitted</th>
+        <th class='cspid'>CSPID</th>
+        <th class='name'>Name</th>
+        <th class='type'>Type</th>
+        <th colspan='2'>Actions</th>
     </tr>
     <tbody id='ts-list'>
         <% timesheets.forEach(function(timesheet){ %>
@@ -51,15 +50,14 @@
             <td><%= timesheet.cspid %></td>
         <% users.forEach(function(user){ %>
             <% if(user.cspid === timesheet.cspid){ %>
-                <td><%= user.lastName %></td>
-                <td><%= user.firstName %></td>
+                <td><%= user.lastName %>, <%= user.firstName %></td>
             <% } %>
         <% }) %>
             <td><%= timesheet.submission %></td>
-                <td><a href='/timesheetview/<%= timesheet._id %>'>View</a></td>
-            <td>
+                <td class='action'><a href='/timesheetview/<%= timesheet._id %>'><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            <td class='action'>
                 <form action="/timesheet/<%= timesheet._id %>?_method=DELETE" method="POST" class="delete-form">
-                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </form>
             </td>
         </tr>

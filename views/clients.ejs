@@ -20,8 +20,8 @@
                 <div class='title'>Manage Clients</div>
                 <table>
                     <tr>
-                        <th>Client Name</th>
-                        <th>Delete</th>
+                        <th class='name'>Client Name</th>
+                        <th>Actions</th>
                     </tr>
                     <% clients.forEach(function(client){ %>
                         <tr>
@@ -30,7 +30,7 @@
                             </td>
                             <td>
                                 <form action="/clients/<%= client._id %>?_method=DELETE" method="POST" class="delete-form">
-                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </form>
                             </td>
                         </tr>

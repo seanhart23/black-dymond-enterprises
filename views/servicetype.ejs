@@ -20,8 +20,8 @@
                         <div class='title'>Manage Service Types</div>
                         <table>
                             <tr>
-                                <th>Service Type</th>
-                                <th>Delete</th>
+                                <th class='name'>Service Type</th>
+                                <th>Actions</th>
                             </tr>
                             <% serviceType.forEach(function(serviceType){ %>
                                 <tr>
@@ -31,7 +31,7 @@
                                     <td>
                                         <form action="/servicetype/<%= serviceType._id %>?_method=DELETE" method="POST"
                                             class="delete-form">
-                                            <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                            <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </form>
                                     </td>
                                 </tr>

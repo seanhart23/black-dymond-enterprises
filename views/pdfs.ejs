@@ -26,9 +26,8 @@
                             <div class='title'>Important Documents</div>
                             <table class='important-link'>
                                 <tr>
-                                    <th>Document Title</th>
-                                    <th>View</th>
-                                    <th>Delete</th>
+                                    <th class='email'>Document Title</th>
+                                    <th colspan='2'>Actions</th>
                                 </tr>
                                 <% pdfs.forEach(function(pdf){ %>
                                     <tr>
@@ -36,12 +35,12 @@
                                             <%= pdf.title %>
                                         </td>
                                         <td><a href='../images/uploads/<%= pdf.attachment %>' target='_blank'>
-                                                View
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a></td>
                                         <td>
                                             <form action="/pdfs/<%= pdf._id %>?_method=DELETE" method="POST"
                                                 class="delete-form">
-                                                <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                                <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </td>
                                     </tr>

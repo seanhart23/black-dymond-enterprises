@@ -9,23 +9,21 @@
 <div class='title'>Ticket Reporting</div>
 <table id='tickets'>
     <tr>
-        <th>Ticket ID</th>
-        <th>Date Submitted</th>
-        <th>Time Submitted</th>
-        <th>Submitted By</th>
-        <th>Service Type</th>
-        <th>Delete</th>
+        <th class='date'>Date Submitted</th>
+        <th class='time'>Time Submitted</th>
+        <th class='name'>Submitted By</th>
+        <th class='type'>Service Type</th>
+        <th colspan='2'>Actions</th>
     </tr>
     <% tickets.forEach(function(ticket){ %>
+        <% var date=ticket.created.toLocaleDateString() %>
+        <% var time=ticket.created.toLocaleTimeString() %>
         <tr>
             <td>
-                <a href='./ticketview/<%= ticket._id %>'><%= ticket._id %></a>
+                <%= date %>
             </td>
             <td>
-                <%= ticket.date %>
-            </td>
-            <td>
-                <%= ticket.time %>
+                <%= time %>
             </td>
             <% users.forEach(function(user){ %>
                 <% if(user.cspid===ticket.cspid){ %>
@@ -37,11 +35,15 @@
                             <td>
                                 <%= ticket.serviceType %>
                             </td>
-
+                            <td>
+                                <a href='./ticketview/<%= ticket._id %>'>
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                            </td>
                             <td>
                                 <form action="/ticketreporting/<%= ticket._id %>?_method=DELETE" method="POST"
                                     class="delete-form">
-                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </form>
                             </td>
                         </tr>

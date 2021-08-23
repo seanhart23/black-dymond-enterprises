@@ -20,7 +20,7 @@
                     <table>
                         <tr>
                             <th>Submission Name</th>
-                            <th>Delete</th>
+                            <th>Actions</th>
                         </tr>
                         <% submissions.forEach(function(submission){ %>
                         <tr>
@@ -29,7 +29,7 @@
                             </td>
                             <td>
                                 <form action="/submission/<%= submission._id %>?_method=DELETE" method="POST" class="delete-form">
-                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </form>
                             </td>
                             </tr>

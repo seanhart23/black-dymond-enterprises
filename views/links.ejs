@@ -26,17 +26,17 @@
                             <div class='title'>Important Links</div>
                             <table class='important-link'>
                                 <tr>
-                                    <th>Link Text</th>
-                                    <th>Link URL</th>
-                                    <th>Delete</th>
+                                    <th class='name'>Link</th>
+                                    <!-- <th>Link URL</th> -->
+                                    <th>Actions</th>
                                 </tr>
                             <% links.forEach(function(link){ %>
                                     <tr>
                                         <td><a href='<%= link.url %>' target='_blank'><%= link.title %></a></td>
-                                        <td><%= link.url %></td>
+                                        <!-- <td><%= link.url %></td> -->
                                         <td>
                                         <form action="/links/<%= link._id %>?_method=DELETE" method="POST" class="delete-form">
-                                            <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                            <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </form>
                                         </td>
                                     </tr>

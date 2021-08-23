@@ -22,8 +22,8 @@
                             <div class='title'>Banner Image</div>
                             <table class='important-link'>
                                 <tr>
-                                    <th>Image Link</th>
-                                    <th>Delete</th>
+                                    <th class='name'>Image Link</th>
+                                    <th>Actions</th>
                                 </tr>
                                 <% Banners.forEach(function(banner){ %>
                                     <tr>
@@ -36,7 +36,7 @@
                                         <td>
                                             <form action="/banner/<%= banner._id %>?_method=DELETE" method="POST"
                                                 class="delete-form">
-                                                <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                                <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </td>
                                     </tr>

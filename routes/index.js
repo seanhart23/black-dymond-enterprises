@@ -431,7 +431,7 @@ router.get('/viewpayroll', middleware.isLoggedIn, (req, res) => {
             if (err) {
                 console.log(err);
             } else {
-                res.render("viewPayroll", { users: allUsers, payrolls: allPayrolls });
+                res.render("viewpayroll", { users: allUsers, payrolls: allPayrolls });
             }
         })
     })

@@ -10,18 +10,12 @@
                         <div class='title'>Employees</div>
                         <table id='employees'>
                             <tr>
-                                <th>CSPID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Hire Date</th>
-                                <th>Client</th>
-                                <th>Role</th>
-                                <th>View</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th class='cspid'>CSPID</th>
+                                <th class='name'>First Name</th>
+                                <th class='name'>Last Name</th>
+                                <th class='name'>Username</th>
+                                <th class='email'>Email</th>
+                                <th colspan='3'>Actions</th>
                             </tr>
                         <% Users.forEach(function(User){ %>
                             <% if(User.role != 'Candidate'){ %>
@@ -43,26 +37,14 @@
                                 <%= User.email %>
                             </td>
                             <td>
-                                <%= User.phone %>
+                                <a href='./user/<%= User._id %>'><i class="fa fa-eye" aria-hidden="true"></i></a>
                             </td>
                             <td>
-                                <%= User.hireDate %>
-                            </td>
-                            <td>
-                                <%= User.client %>
-                            </td>
-                            <td>
-                                <%= User.role %>
-                            </td>
-                            <td>
-                                <a href='./user/<%= User._id %>'>View</a>
-                            </td>
-                            <td>
-                                <a href='./edituser/<%= User._id %>'>Edit</a>
+                                <a href='./edituser/<%= User._id %>'><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
                                 <form action="/edituser/<%= User._id %>?_method=DELETE" method="POST" class="delete-form">
-                                    <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </form>
                             </td>
                             </tr>
