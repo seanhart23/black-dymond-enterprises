@@ -1,0 +1,67 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <% if(currentUser.role==="Admin" ){ %>
+                    <div class='col-lg-10' id='right'>
+                        <div class='title'>Candidates</div>
+                        <table id='employees'>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>View</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            <% Users.forEach(function(User){ %>
+                                <% if(User.role==="Candidate" ){ %>
+                                <tr>
+                                    <td>
+                                        <%= User.firstName %>
+                                    </td>
+                                    <td>
+                                        <%= User.lastName %>
+                                    </td>
+                                    <td>
+                                        <%= User.username %>
+                                    </td>
+                                    <td>
+                                        <%= User.email %>
+                                    </td>
+                                    <td>
+                                        <%= User.phone %>
+                                    </td>
+                                    <td>
+                                        <a href='./user/<%= User._id %>'>View</a>
+                                    </td>
+                                    <td>
+                                        <a href='./edituser/<%= User._id %>'>Edit</a>
+                                    </td>
+                                    <td>
+                                        <form action="/edituser/<%= User._id %>?_method=DELETE" method="POST"
+                                            class="delete-form">
+                                            <button class='btn btn-sm' id='deleteButton'>Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% } %>
+                                <% }) %>
+                        </table>
+                        <a href='/register'><button id='add'>Add an Candidate</button></a>
+                    </div>
+            </div>
+    </div>
+    <% } else { %>
+        <div class='col-lg-10' id='right'>
+            <h1>Nice Try! You need to be an admin to access this page.</h1>
+        </div>
+        <% } %>
+            </div>
+            </div>
+            <%- include('./partials/global/footer.ejs') -%>

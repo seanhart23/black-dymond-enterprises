@@ -11,23 +11,43 @@
                             <div class='col-lg-5'>
                                 <table id='payroll'>
                                     <tr>
-                                        <th>Upload Date</th>
+                                        <th>Pay Period Ending On</th>
                                         <th>Download PDF</th>
                                     </tr>
                                     <% payrolls.forEach(function(payroll){ %>
-                                        <% if (payroll.cspid===currentUser.cspid){ %>
-                                        <% var date=payroll.created.toLocaleDateString() %>
-                                        <tr>
-                                            <td>
-                                                <%= date %>
-                                            </td>
-                                            <td>
-                                                <a href='./images/uploads/<%= payroll.attachment %>' target='_blank'>Payroll Invoice</a>
-                                            </td>
-                                        </tr>
+
+                                        <% if(currentUser.role === 'Admin'){ %>
+                                            <% var date=payroll.payperiod %>
+                                                <tr>
+                                                    <td>
+                                                        <%= date %>
+                                                    </td>
+                                                    <td>
+                                                        <a href='./images/uploads/<%= payroll.attachment %>' target='_blank'>Payroll Invoice</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
                                         <% } else { %>
-                                    <% }}) %>
-                                </table>
+
+                                            <% if (payroll.cspid === currentUser.cspid){ %>
+                                            <% var date=payroll.payperiod %>
+                                                <tr>
+                                                    <td>
+                                                        <%= date %>
+                                                    </td>
+                                                    <td>
+                                                        <a href='./images/uploads/<%= payroll.attachment %>' target='_blank'>Payroll Invoice</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <% } else { %>
+
+                                            <% } %>
+
+                                        <% } %>
+                                        <% }) %>
+
                             </div>
                             <div class='col-lg-5'></div>
                         </div>

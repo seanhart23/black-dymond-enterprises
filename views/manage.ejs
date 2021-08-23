@@ -19,11 +19,13 @@
                                 <th>Hire Date</th>
                                 <th>Client</th>
                                 <th>Role</th>
-                                <th>CCA</th>
+                                <th>View</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         <% Users.forEach(function(User){ %>
+                            <% if(User.role != 'Candidate'){ %>
+
                             <tr>
                             <td>
                                 <%= User.cspid %>
@@ -53,7 +55,7 @@
                                 <%= User.role %>
                             </td>
                             <td>
-                                <%= User.cca %>
+                                <a href='./user/<%= User._id %>'>View</a>
                             </td>
                             <td>
                                 <a href='./edituser/<%= User._id %>'>Edit</a>
@@ -64,6 +66,7 @@
                                 </form>
                             </td>
                             </tr>
+                            <% } %>
                         <% }) %>
                         </table>
                         <a href='/register'><button id='add'>Add an Employee</button></a>

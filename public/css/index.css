@@ -24,7 +24,15 @@ a {
     min-height: 100vh;
 }
 
-
+#banner {
+    height: 150px;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 10px gray;
+    overflow: hidden;
+}
 
 body {
     font-weight: 300;
@@ -38,6 +46,10 @@ button {
     border: none;
     border-radius: 25px;
     /* box-shadow: 3px 3px 10px 0px gray; */
+}
+
+.card-header {
+    padding: 0px 10px;
 }
 
 #date {
@@ -78,7 +90,7 @@ button {
 
 #filter-employee {
     width: 20%;
-    margin: 25px 0px;
+    margin: 10px 0px;
 }
 
 .fa-sign-out-alt {
@@ -302,6 +314,10 @@ td {
     padding: 10px;
     font-size: 12px;
     margin-bottom: 20px;
+}
+
+.widget img {
+    width: 100%;
 }
 
 .widget-header {

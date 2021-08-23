@@ -12,14 +12,20 @@
                         <form action='/uploadPayroll' enctype="multipart/form-data" method='POST'>
                             <div class='form-row'>
                                 <div class="form-group col-md-10">
-                                    <select class="form-control" name='cspid' id='client'>
-                                        <option selected disabled>Choose an Employee</option>
-                                        <% users.forEach(function(user){ %>
-                                            <option value="<%= user.cspid %>">
-                                                <%= user.lastName %>, <%= user.firstName %> - <%= user.cspid %>
-                                            </option>
-                                            <% }) %>
-                                    </select>
+                                    <div class='form-group'>
+                                        <select class="form-control" name='cspid' id='client'>
+                                            <option selected disabled>Choose an Employee</option>
+                                            <% users.forEach(function(user){ %>
+                                                <option value="<%= user.cspid %>">
+                                                    <%= user.lastName %>, <%= user.firstName %> - <%= user.cspid %>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class='form-group'>
+                                        <label>Pay Period End Date</label>
+                                        <input type='date' class='form-control' name='payperiod'>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">

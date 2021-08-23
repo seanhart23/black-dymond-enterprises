@@ -8,6 +8,7 @@ var ticketSchema = mongoose.Schema({
     additionalDetails: String,
     ticketNumber: String,
     attachment: String,
+    adminresponse: String,
     created: { type: Date, default: Date.now }
 });
 

@@ -1,0 +1,64 @@
+    <div class='title'>Employee/Candidate Details</div>
+        <div class='row'>
+            <div class='col-lg-6'>
+                <table class='timesheetview'>
+                    <tr>
+                        <td class='label'>Name:</td>
+                        <td>
+                            <%= user.firstName %> <%= user.lastName %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Address:</td>
+                        <td>
+                            <%= user.street %><br>
+                            <%= user.city %>, <%= user.state %> <%= user.zip %> <%= user.country %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Phone Number:</td>
+                        <td>
+                            <%= user.phone %><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Email Address:</td>
+                        <td>
+                            <%= user.email %><br>
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td class='label'>CSPID:</td>
+                        <td>
+                            <%= user.cspid %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class='col-lg-6'>
+                <table class='timesheetview'>
+                    <tr>
+                        <td class='label'>Role:</td>
+                        <td>
+                            <%= user.role %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Hire Date:</td>
+                        <td><%= user.hireDate %></td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Client:</td>
+                        <td>
+                            <%= user.client %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>CCA:</td>
+                        <td><%= user.cca %></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+</div>

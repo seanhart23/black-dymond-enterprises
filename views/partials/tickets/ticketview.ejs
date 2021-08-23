@@ -73,6 +73,34 @@
                         </td>
                     </tr>
                 </table>
+                <br>
+                    <% if(currentUser.role==='Admin' ){ %>
+                        <table class='ticketview'>
+                        <tr>
+                            <td class='label'>Ticket Response:</td>
+                            <td>
+                                <%= ticket.adminresponse %>
+                            </td>
+                        </tr>
+                        </table>
+                        <form action="/ticketentry/<%= ticket._id %>?_method=PUT" method="post">
+                            <br>
+                            <div class='form-group'>
+                                <label>Ticket Response</label>
+                                <textarea class='form-control' type='text' name='adminresponse'></textarea><br>
+                                <button type='submit'>Update Ticket</button>
+                            </div>
+                        </form>
+                        <% } else { %>
+                        <table class='ticketview'>
+                            <tr>
+                                <td class='label'>Ticket Response:</td>
+                                <td>
+                                    <%= ticket.response %>
+                                </td>
+                            </tr>
+                        </table>
+                        <% } %>
             </div>
         </div>
         <hr>

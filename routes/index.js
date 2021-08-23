@@ -16,6 +16,7 @@ var express        = require('express'),
     timesheet      = require('../models/timesheet'),
     User           = require('../models/user'),
     Payroll        = require('../models/payroll'),
+    Banner         = require('../models/banner'),
     ticket         = require('../models/ticket'),
     alert          = require('../models/alert'),
     link           = require('../models/links'),
@@ -51,16 +52,18 @@ router.get('/dashboard', middleware.isLoggedIn, function (req, res) {
             alert.find({}, function (err, allAlerts) {
                 link.find({}, function (err, allLinks) {
                     pdf.find({}, function (err, allPdfs) {
+                        Banner.find({}, function (err, allBanners) {
             if (err) {
                 console.log(err);
             } else {
-                res.render("dashboard", { clients: allClients, submissions: allSubmissions, alerts: allAlerts, links: allLinks, pdfs: allPdfs });
+                res.render("dashboard", { banners: allBanners, clients: allClients, submissions: allSubmissions, alerts: allAlerts, links: allLinks, pdfs: allPdfs });
             }
         })
         })
     })
     })
     })
+})
 });
 
 router.get('/manage', middleware.isLoggedIn, function (req, res) {
@@ -311,6 +314,11 @@ router.post('/register', middleware.isLoggedIn, (req, res) => {
             client: req.body.client,
             cca: req.body.cca,
             role: req.body.role,
+            street: req.body.street,
+            city: req.body.city,
+            state: req.body.state,
+            zip: req.body.zip,
+            country: req.body.country,
         })
 
     User.register(newUser, req.body.password, function (err, user) {
@@ -337,7 +345,22 @@ router.get('/edituser/:id', middleware.isLoggedIn, function (req, res) {
 router.put('/edituser/:id', middleware.isLoggedIn, function (req, res) {
     mongoose.connect(url, function (err, db) {
         if (err) throw err;
-        var newvalues = { $set: {username: req.body.username, cspid: req.body.cspid, firstName: req.body.firstName, lastName: req.body.lastName, hireDate: req.body.hireDate, phone: req.body.phone, email: req.body.email, cca: req.body.cca, role: req.body.role}};
+        var newvalues = { $set: {
+            username: req.body.username, 
+            cspid: req.body.cspid, 
+            firstName: req.body.firstName, 
+            lastName: req.body.lastName, 
+            hireDate: req.body.hireDate, 
+            phone: req.body.phone, 
+            email: req.body.email, 
+            cca: req.body.cca, 
+            role: req.body.role,
+            street: req.body.street,
+            city: req.body.city,
+            state: req.body.state,
+            zip: req.body.zip,
+            country: req.body.country,
+        }};
         db.collection("users").updateOne({ cspid: req.body.cspid }, newvalues, function (err, res) {
             if (err) {
                 console.log(err);
@@ -359,6 +382,19 @@ router.delete('/edituser/:id', middleware.isLoggedIn, function (req, res) {
     });
 });
 
+/** VIEW USER DETAILS */
+router.get('/user/:id', middleware.isLoggedIn, function (req, res) {
+    User.findById(req.params.id, function (err, foundUser) {
+        client.find({}, function (err, allClients) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("user", { user: foundUser, clients: allClients });
+            }
+        });
+    });
+});
+
 /** PAYROLL ROUTES */
 
 router.get('/uploadpayroll', middleware.isLoggedIn, (req, res) => {
@@ -376,6 +412,7 @@ router.get('/uploadpayroll', middleware.isLoggedIn, (req, res) => {
 router.post('/uploadpayroll', uploadStorage.single("upload"), middleware.isLoggedIn, (req, res) => {
     var newPayroll = new Payroll({
         cspid: req.body.cspid,
+        payperiod: req.body.payperiod,
         attachment: req.file.originalname,
     })
 
@@ -424,7 +461,17 @@ router.get('/ticketreporting', middleware.isLoggedIn, (req, res) => {
     })
 });
 
-router.post('/ticketEntry', uploadStorage.single("upload"), middleware.isLoggedIn, function (req, res) {
+router.delete('/ticketreporting/:id', middleware.isLoggedIn, function (req, res) {
+    ticket.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/ticketreporting');
+        } else {
+            res.redirect('/ticketreporting');
+        }
+    });
+});
+
+router.post('/ticketentry', uploadStorage.single("upload"), middleware.isLoggedIn, function (req, res) {
     if (req.file != undefined) {
         var newTicket = {
             cspid: req.body.cspid,
@@ -433,6 +480,7 @@ router.post('/ticketEntry', uploadStorage.single("upload"), middleware.isLoggedI
             serviceType: req.body.serviceType,
             additionalDetails: req.body.additionalDetails,
             ticketNumber: req.body.ticketNumber,
+            adminresponse: req.body.adminresponse,
             attachment: req.file.originalname
         }
     } else {
@@ -443,6 +491,7 @@ router.post('/ticketEntry', uploadStorage.single("upload"), middleware.isLoggedI
             serviceType: req.body.serviceType,
             additionalDetails: req.body.additionalDetails,
             ticketNumber: req.body.ticketNumber,
+            adminresponse: req.body.adminresponse,
         }
     }
 
@@ -465,6 +514,26 @@ router.get('/ticketview/:id', middleware.isLoggedIn, function (req, res) {
             }
         });
     });
+});
+
+router.put('/ticketentry/:id', middleware.isLoggedIn, function (req, res) {
+    mongoose.connect(url, function (err, db) {
+        var ObjectId = require('mongodb').ObjectID;
+        if (err) throw err;
+        var newvalues = {
+            $set: {
+                adminresponse: req.body.adminresponse,
+            }
+        };
+        db.collection("tickets").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Ticket Updated')
+            }
+        });
+    })
+    res.redirect('/ticketreporting');
 });
 
 /** ALERTS */
@@ -611,5 +680,51 @@ router.get('/servicetype', middleware.isLoggedIn, function (req, res) {
                 res.render("servicetype", { serviceType: allServicetypes });
             }
         })
+});
+
+/** CMS */
+router.get('/candidates', middleware.isLoggedIn, function (req, res) {
+    User.find({}, function (err, allUsers) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("candidates", { Users: allUsers });
+        }
+    })
+})
+
+/** BANNER IMAGE  */
+router.get('/banner', middleware.isLoggedIn, function (req, res) {
+    Banner.find({}, function (err, allBanners) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("banner", { Banners: allBanners });
+        }
+    })
+})
+
+router.post('/banner', uploadStorage.single("upload"), middleware.isLoggedIn, function (req, res) {
+        var newBanner = {
+            attachment: req.file.originalname
+        }
+
+    Banner.create(newBanner, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/banner");
+        }
+    });
+});
+
+router.delete('/banner/:id', middleware.isLoggedIn, function (req, res) {
+    Banner.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/banner');
+        } else {
+            res.redirect('/banner');
+        }
+    });
 });
 module.exports = router;

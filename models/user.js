@@ -11,7 +11,12 @@ var UserSchema = new mongoose.Schema({
     email: String,
     client: String,
     cca: String,
-    role: String
+    role: String,
+    street: String,
+    city: String,
+    state: String,
+    zip: String,
+    country: String,
 });
 
 UserSchema.plugin(passportLocalMongoose);
