@@ -403,7 +403,7 @@ router.get('/uploadpayroll', middleware.isLoggedIn, (req, res) => {
             if (err) {
                 console.log(err);
             } else {
-                res.render("uploadPayroll", { users: allUsers, timesheets: allTimesheets });
+                res.render("uploadpayroll", { users: allUsers, timesheets: allTimesheets });
             }
         })
     })
