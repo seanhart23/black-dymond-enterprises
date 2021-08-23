@@ -499,7 +499,7 @@ router.post('/ticketentry', uploadStorage.single("upload"), middleware.isLoggedI
         if (err) {
             console.log(err);
         } else {
-            res.redirect("/ticketEntry");
+            res.redirect("/ticketentry");
         }
     });
 });
