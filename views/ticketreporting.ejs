@@ -6,51 +6,87 @@
                     <%- include('./partials/global/menu.ejs') -%>
                 </div>
                 <div class='col-lg-10' id='right'>
-<div class='title'>Ticket Reporting</div>
-<table id='tickets'>
-    <tr>
-        <th class='date'>Date Submitted</th>
-        <th class='time'>Time Submitted</th>
-        <th class='name'>Submitted By</th>
-        <th class='type'>Service Type</th>
-        <th colspan='2'>Actions</th>
-    </tr>
-    <% tickets.forEach(function(ticket){ %>
-        <% var date=ticket.created.toLocaleDateString() %>
-        <% var time=ticket.created.toLocaleTimeString() %>
-        <tr>
-            <td>
-                <%= date %>
-            </td>
-            <td>
-                <%= time %>
-            </td>
-            <% users.forEach(function(user){ %>
-                <% if(user.cspid===ticket.cspid){ %>
-                    <td>
-                        <%= user.lastName %>, <%= user.firstName %>
-                    </td>
-                    <% } %>
-                        <% }) %>
-                            <td>
-                                <%= ticket.serviceType %>
-                            </td>
-                            <td>
-                                <a href='./ticketview/<%= ticket._id %>'>
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <form action="/ticketreporting/<%= ticket._id %>?_method=DELETE" method="POST"
-                                    class="delete-form">
-                                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                </form>
-                            </td>
+                    <div class='title'>Ticket Reporting</div>
+                    <table id='tickets'>
+                        <tr>
+                            <th class='date'>Date Submitted</th>
+                            <th class='time'>Time Submitted</th>
+                            <th class='name'>Submitted By</th>
+                            <th class='type'>Service Type</th>
+                            <th colspan='2'>Actions</th>
                         </tr>
-                    <% }) %>
-            </table>
-        </div>                
-    </div>
-</div>
-</div>
+                        <% tickets.forEach(function(ticket){ %>
+                            <% if(currentUser.role === 'Admin'){ %>
+                            <% var date=ticket.created.toLocaleDateString() %>
+                            <% var time=ticket.created.toLocaleTimeString() %>
+                            <tr>
+                                <td>
+                                    <%= date %>
+                                </td>
+                                <td>
+                                    <%= time %>
+                                </td>
+                                <% users.forEach(function(user){ %>
+                                    <% if(user.cspid===ticket.cspid){ %>
+                                        <td>
+                                            <%= user.lastName %>, <%= user.firstName %>
+                                        </td>
+                                        <% } %>
+                                    <% }) %>
+                                        <td>
+                                            <%= ticket.serviceType %>
+                                        </td>
+                                        <td>
+                                            <a href='./ticketview/<%= ticket._id %>'>
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <form action="/ticketreporting/<%= ticket._id %>?_method=DELETE" method="POST"
+                                                class="delete-form">
+                                                <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% } else { %>
+                                <% if(currentUser.cspid === ticket.cspid){ %>
+                                <% var date=ticket.created.toLocaleDateString() %>
+                                <% var time=ticket.created.toLocaleTimeString() %>
+                                <tr>
+                                    <td>
+                                        <%= date %>
+                                    </td>
+                                    <td>
+                                        <%= time %>
+                                    </td>
+                                    <% users.forEach(function(user){ %>
+                                        <% if(user.cspid===ticket.cspid){ %>
+                                            <td>
+                                                <%= user.lastName %>, <%= user.firstName %>
+                                            </td>
+                                        <% } %>
+                                    <% }) %>
+                                    <td>
+                                        <%= ticket.serviceType %>
+                                    </td>
+                                    <td>
+                                        <a href='./ticketview/<%= ticket._id %>'>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form action="/ticketreporting/<%= ticket._id %>?_method=DELETE" method="POST"
+                                            class="delete-form">
+                                            <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% } %>
+                                    <% } %>
+                                <% }) %>
+                                </table>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
     <%- include('./partials/global/footer.ejs') -%>

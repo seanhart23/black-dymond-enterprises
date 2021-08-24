@@ -770,4 +770,16 @@ router.delete('/sow/:id', middleware.isLoggedIn, function (req, res) {
     });
 });
 
+router.get('/viewsow', middleware.isLoggedIn, (req, res) => {
+    User.find({}, function (err, allUsers) {
+        sow.find({}, function (err, allSows) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("viewsow", { users: allUsers, sows: allSows });
+            }
+        })
+    })
+});
+
 module.exports = router;

@@ -1,0 +1,61 @@
+<%- include('./partials/global/header.ejs') -%>
+    <div>
+        <%- include('./partials/global/navbar.ejs') -%>
+            <div class='row'>
+                <div class='col-lg-2' id='left'>
+                    <%- include('./partials/global/menu.ejs') -%>
+                </div>
+                <div class='col-lg-10' id='right'>
+                    <div class='title'>View SOWs</div>
+                    <div class='row'>
+                        <div class='col-lg-5'>
+                            <table id='payroll'>
+                                <tr>
+                                    <th class='payPeriod'>SOW Date</th>
+                                    <th>Download PDF</th>
+                                </tr>
+                                <% sows.forEach(function(sow){ %>
+
+                                    <% if(currentUser.role==='Admin' ){ %>
+                                        <% var date=sow.sowDate %>
+                                            <tr>
+                                                <td>
+                                                    <%= date %>
+                                                </td>
+                                                <td>
+                                                    <a href='./images/uploads/<%= sow.attachment %>'
+                                                        target='_blank'>View SOW</a>
+                                                </td>
+                                            </tr>
+
+                                            <% } else { %>
+
+                                                <% if (sow.cspid===currentUser.cspid){ %>
+                                                    <% var date=sow.sowDate %>
+                                                        <tr>
+                                                            <td>
+                                                                <%= date %>
+                                                            </td>
+                                                            <td>
+                                                                <a href='./images/uploads/<%= sow.attachment %>'
+                                                                    target='_blank'>View SOW</a>
+                                                            </td>
+                                                        </tr>
+                            </table>
+                            <% } else { %>
+
+                                <% } %>
+
+                                    <% } %>
+                                        <% }) %>
+
+                        </div>
+                        <div class='col-lg-5'></div>
+                    </div>
+
+
+                </div>
+            </div>
+    </div>
+    </div>
+    <%- include('./partials/global/footer.ejs') -%>

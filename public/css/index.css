@@ -90,6 +90,12 @@ button {
     width: 300px;
 }
 
+.error {
+    width: 100%;
+    text-align: center;
+    padding-top: 100px;
+}
+
 #filter-employee {
     width: 20%;
     margin: 10px 0px;

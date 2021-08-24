@@ -1,4 +1,7 @@
 <%- include('./partials/global/header.ejs') -%>
+<% if(currentUser.role === 'Inactive'){ %>
+    <div class='error'><h1>Sorry, your account is no longer active</h1></div>
+<% } else { %>
     <div>
         <%- include('./partials/global/navbar.ejs') -%>
             <div class='row'>
@@ -29,4 +32,5 @@
                 </div>
             </div>
     </div>
+    <% } %>
     <%- include('./partials/global/footer.ejs') -%>
