@@ -21,6 +21,7 @@ var express        = require('express'),
     ticket         = require('../models/ticket'),
     alert          = require('../models/alert'),
     link           = require('../models/links'),
+    sow            = require('../models/sow'),
     serviceType    = require('../models/serviceType'),
     pdf            = require('../models/pdf'),
     url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
@@ -320,6 +321,7 @@ router.post('/register', middleware.isLoggedIn, (req, res) => {
             state: req.body.state,
             zip: req.body.zip,
             country: req.body.country,
+            notes: req.body.notes,
         })
 
     User.register(newUser, req.body.password, function (err, user) {
@@ -361,6 +363,7 @@ router.put('/edituser/:id', middleware.isLoggedIn, function (req, res) {
             state: req.body.state,
             zip: req.body.zip,
             country: req.body.country,
+            notes: req.body.notes,
         }};
         db.collection("users").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
             if (err) {
@@ -727,4 +730,44 @@ router.delete('/banner/:id', middleware.isLoggedIn, function (req, res) {
         }
     });
 });
+
+/** SOWs */
+router.get('/sow', middleware.isLoggedIn, (req, res) => {
+    User.find({}, function (err, allUsers) {
+        sow.find({}, function (err, allSows) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("sow", { users: allUsers, sows: allSows });
+            }
+        })
+    })
+});
+
+router.post('/sow', uploadStorage.single("upload"), middleware.isLoggedIn, (req, res) => {
+    var newSow = new sow({
+        cspid: req.body.cspid,
+        sowDate: req.body.sowDate,
+        attachment: req.file.originalname,
+    })
+
+    sow.create(newSow, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/sow");
+        }
+    });
+});
+
+router.delete('/sow/:id', middleware.isLoggedIn, function (req, res) {
+    sow.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/sow');
+        } else {
+            res.redirect('/sow');
+        }
+    });
+});
+
 module.exports = router;
