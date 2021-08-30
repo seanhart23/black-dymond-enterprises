@@ -66,6 +66,11 @@ button {
     font-size: 24px;
 }
 
+.datestamp {
+    font-weight: bolder;
+    padding-right: 25px;
+}
+
 #date-box {
     width: 100%;
     background-color: rgb(199, 0, 0)!important;

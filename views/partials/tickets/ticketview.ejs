@@ -4,36 +4,26 @@
         <div class='row'>
             <div class='col-lg-6'>
                 <table class='ticketview'>
-                    <tr>
-                        <td class='label'>Employee Name:</td>
-                        <% users.forEach(function(user){ %>
-                            <% if(user.cspid===ticket.cspid){ %>
-                                <td>
-                                    <%= user.firstName %>
-                                        <%= user.lastName %>
-                                </td>
-                              
-                    </tr>
-                    <tr>
-                        <td class='label'>CSPID:</td>
-                        <td>
-                            <%= ticket.cspid %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='label'>Email:</td>
-                        <td>
-                            <%= user.email %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='label'>Phone:</td>
-                        <td>
-                            <%= user.phone %>
-                        </td>
-                    </tr>
+                    <% users.forEach(function(user){ %>
+                        <% if(user.cspid===ticket.cspid){ %>
+                            <tr>
+                                <td class='label'>Employee Name:</td>
+                                <td><%= user.lastName %>, <%= user.firstName %></td>
+                            </tr>
+                            <tr>
+                                <td class='label'>CSPID:</td>
+                                <td><%= ticket.cspid %></td>
+                            </tr>
+                            <tr>
+                                <td class='label'>Email:</td>
+                                <td><%= user.email %></td>
+                            </tr>
+                            <tr>
+                                <td class='label'>Phone:</td>
+                                <td><%= user.phone %></td>
+                            </tr>
                         <% } %>
-                        <% }) %>
+                    <% }) %>
                 </table>
                 <br>
                 <br>
@@ -47,7 +37,7 @@
                     <tr>
                         <td class='label'>Attachment:</td>
                         <td>
-                            <a href='<%= ticket.attachment %>' target='_blank'><%= ticket.attachment %></a>
+                            <a href='<%= ticket.attachment %>' target='_blank'>View attachment</a>
                         </td>
                     </tr>
                     <tr>
@@ -63,53 +53,52 @@
                     <tr>
                         <td class='label'>Date Submitted:</td>
                                 <td>
-                                    <%= ticket.date.toLocaleString() %>
+                                    <%= ticket.created.toLocaleDateString() %>
                                 </td>
                     </tr>
                     <tr>
                         <td class='label'>Time Submitted:</td>
                         <td>
-                            <%= ticket.time.toLocaleString() %>
+                            <%= ticket.created.toLocaleTimeString() %>
                         </td>
                     </tr>
                 </table>
                 <br>
-                    <% if(currentUser.role==='Admin' ){ %>
                         <table class='ticketview'>
                         <tr>
-                            <td class='label'>Ticket Response:</td>
+                            <td class='label'>Ticket Responses:</td>
                             <td>
-                                <%= ticket.adminresponse %>
+                                <% ticketResponses.forEach(function(ticketResponse){ %>
+                                    <% if(ticket.id === ticketResponse.ticketId){ %>
+                                        <% var date = ticketResponse.created.toLocaleDateString() %>
+                                        <% var time = ticketResponse.created.toLocaleTimeString() %>
+                                        <tr>
+                                        <td class='datestamp'><%= date %> - <%= time %>:</td>
+                                        <td>
+                                            <%= ticketResponse.comment %>
+                                            <% if( ticketResponse.attachment != null){ %>
+                                                - <a href='<%= ticketResponse.attachment %>' target='_blank'>Download</a>
+                                            <% } %>
+                                        </td>
+                                        </tr>
+                                    <% } %>
+                                <% }) %>
                             </td>
                         </tr>
                         </table>
                     </div>
-                    <div class='row'>
-                        <div class='col-lg-12'>
-                            <form action="/ticketentry/<%= ticket._id %>?_method=PUT" method="post">
-                                <br>
-                                <div class='form-group'>
-                                    <label>Ticket Response</label>
-                                    <textarea class='form-control' type='text' name='adminresponse'></textarea><br>
-                                    <button type='submit'>Update Ticket</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                        <% } else { %>
-                        <table class='ticketview'>
-                            <tr>
-                                <td class='label'>Ticket Response:</td>
-                                <td>
-                                    <%= ticket.adminresponse %>
-                                </td>
-                            </tr>
-                        </table>
-                        <% } %>
             </div>
         </div>
-        <hr>
     </div>
+                        <div class='row'>
+                            <div class='col-lg-12'>
+                                <br>
+                                <h4>Ticket Response</h4>
+                                <hr>
+                                <%- include('./ticketreply.ejs') -%>
+                            </div>
+
+                        </div>
 </div>
+
 </div>

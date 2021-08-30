@@ -1,0 +1,15 @@
+<form action='/ticketresponse' method='POST' enctype="multipart/form-data" action="send">
+    <div class="form-group" id='upload'>
+        <input type="text" class="form-control-file" name='ticket_id' value='<%= ticket._id %>' hidden>
+    </div>
+    <div class="form-group" id='upload'>
+        <label for="upload">Upload attachments</label>
+        <input type="file" class="form-control-file" name='file'>
+    </div>
+    <br>
+    <div class="form-group">
+        <label>Add Comments</label>
+        <textarea type='text' class='form-control' name='comment'></textarea>
+    </div>
+    <button type='submit' id='submit'>Submit Response</button>
+</form>

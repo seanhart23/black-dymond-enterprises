@@ -24,6 +24,7 @@ var express        = require('express'),
     sow            = require('../models/sow'),
     serviceType    = require('../models/serviceType'),
     pdf            = require('../models/pdf'),
+    ticketResponse = require('../models/ticketresponse'),
     upload = require("../middleware/upload"),
     url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
@@ -522,12 +523,14 @@ router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, functi
 
 router.get('/ticketview/:id', middleware.isLoggedIn, function (req, res) {
     ticket.findById(req.params.id, function (err, foundTicket) {
-        User.find({}, function (err, allUsers) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render("ticketview", { ticket: foundTicket, users: allUsers });
-            }
+        ticketResponse.find({}, function (err, allTicketResponses) {
+            User.find({}, function (err, allUsers) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render("ticketview", { ticket: foundTicket, users: allUsers, ticketResponses: allTicketResponses });
+                }
+            });
         });
     });
 });
@@ -549,6 +552,29 @@ router.put('/ticketentry/:id', middleware.isLoggedIn, function (req, res) {
         });
     })
     res.redirect('/ticketreporting');
+});
+
+router.post('/ticketresponse', upload.single("file"), middleware.isLoggedIn, function (req, res) {
+    if (req.file != undefined) {
+        var newTicketResponse = {
+            ticketId: req.body.ticket_id,
+            comment: req.body.comment,
+            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
+        }
+    } else {
+        var newTicketResponse = {
+            ticketId: req.body.ticket_id,
+            comment: req.body.comment,
+        }
+    }
+
+    ticketResponse.create(newTicketResponse, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/ticketview/" + req.body.ticket_id );
+        }
+    });
 });
 
 /** ALERTS */
