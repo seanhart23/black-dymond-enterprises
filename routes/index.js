@@ -260,7 +260,7 @@ router.post('/timesheets', upload.single("file"), middleware.isLoggedIn, functio
             validation: req.body.validation,
             missedClassDate: req.body.missedClassDate,
             timesheetHours: req.body.timesheetHours,
-            attachment: `http://localhost:3000/file/${req.file.filename}`
+            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
         var newTimesheet = {
@@ -418,7 +418,7 @@ router.post('/uploadpayroll', upload.single("file"), middleware.isLoggedIn, (req
     var newPayroll = new Payroll({
         cspid: req.body.cspid,
         payperiod: req.body.payperiod,
-        attachment: `http://localhost:3000/file/${req.file.filename}`,
+        attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`,
     })
 
     Payroll.create(newPayroll, function (err, newlyCreated) {
@@ -486,7 +486,7 @@ router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, functi
             additionalDetails: req.body.additionalDetails,
             ticketNumber: req.body.ticketNumber,
             adminresponse: req.body.adminresponse,
-            attachment: `http://localhost:3000/file/${req.file.filename}`
+            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
         var newTicket = {
@@ -710,7 +710,7 @@ router.get('/banner', middleware.isLoggedIn, function (req, res) {
 
 router.post('/banner', upload.single("file"), middleware.isLoggedIn, function (req, res) {
         var newBanner = {
-            attachment: `http://localhost:3000/file/${req.file.filename}`
+            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
         }
 
     Banner.create(newBanner, function (err, newlyCreated) {
@@ -750,7 +750,7 @@ router.post('/sow', upload.single("file"), middleware.isLoggedIn, (req, res) => 
     var newSow = new sow({
         cspid: req.body.cspid,
         sowDate: req.body.sowDate,
-        attachment: `http://localhost:3000/file/${req.file.filename}`,
+        attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`,
     })
 
     sow.create(newSow, function (err, newlyCreated) {
