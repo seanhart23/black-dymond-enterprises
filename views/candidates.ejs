@@ -10,8 +10,7 @@
                         <div class='title'>Candidates</div>
                         <table id='employees'>
                             <tr>
-                                <th class='name'>First Name</th>
-                                <th class='name'>Last Name</th>
+                                <th class='name'>Name</th>
                                 <th class='name'>Username</th>
                                 <th class='email'>Email</th>
                                 <th colspan='3'>Actions</th>
@@ -20,10 +19,7 @@
                                 <% if(User.role==="Candidate" ){ %>
                                 <tr>
                                     <td>
-                                        <%= User.firstName %>
-                                    </td>
-                                    <td>
-                                        <%= User.lastName %>
+                                        <%= User.lastName %>, <%= User.firstName %>
                                     </td>
                                     <td>
                                         <%= User.username %>

@@ -58,7 +58,11 @@ button {
     width: 200px;
 }
 
-.date, .time , .cspid, .name, .type {
+.cspid {
+    width: 200px;
+}
+
+.date, .time, .name, .type {
     width: 150px!important;
 }
 
