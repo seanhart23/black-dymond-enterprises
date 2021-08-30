@@ -10,8 +10,19 @@ var express        = require('express'),
     bodyParser     = require('body-parser'),
     LocalStrategy  = require('passport-local'),
     User           = require('./models/user'),
-    router         = express.Router();
+    upload         = require("./routes/upload"),
+    Grid           = require("gridfs-stream"),
+    router         = express.Router(),
+    connection = mongoose.connect("mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority", { useUnifiedTopology: true });
 
+
+let gfs;
+
+const conn = mongoose.connection;
+conn.once("open", function () {
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection("photos");
+});
 mongoose.set('useFindAndModify', false);
 
 app.set("view engine", "ejs");
@@ -39,9 +50,19 @@ app.use(function (req, res, next) {
 /** ROUTES */
 var indexRoutes = require('./routes/index.js');
 
+app.get("/file/:filename", async (req, res) => {
+    try {
+        const file = await gfs.files.findOne({ filename: req.params.filename });
+        const readStream = gfs.createReadStream(file.filename);
+        readStream.pipe(res);
+    } catch (error) {
+        res.send("not found");
+    }
+});
 
 /** REQUIRING ROUTE FILES USING EXPRESS ROUTER */
 app.use('/', indexRoutes);
+app.use("/file", upload);
 
 /** TELL APP TO LISTEN TO PORT AND IP */
 app.listen(process.env.PORT || 3000, process.env.IP, function () {

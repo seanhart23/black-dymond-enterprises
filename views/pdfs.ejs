@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="form-group" id='upload'>
                                     <label for="upload">Attach Document</label>
-                                    <input type="file" class="form-control-file" name='upload'>
+                                    <input type="file" class="form-control-file" name='file'>
                                 </div>
                                 <button type='submit' id='submit'>Post Document</button>
                             </form>
@@ -34,7 +34,7 @@
                                         <td>
                                             <%= pdf.title %>
                                         </td>
-                                        <td><a href='../images/uploads/<%= pdf.attachment %>' target='_blank'>
+                                        <td><a href='<%= pdf.attachment %>' target='_blank'>
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a></td>
                                         <td>

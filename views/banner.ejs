@@ -13,7 +13,7 @@
                             <form action='/banner' method='POST' enctype="multipart/form-data" action="send">
                                 <div class="form-group" id='upload'>
                                     <label for="upload">Upload any supporting screenshots below</label>
-                                    <input type="file" class="form-control-file" name='upload'>
+                                    <input type="file" class="form-control-file" name='file'>
                                 </div>
                                 <button type='submit' id='submit'>Upload Image</button>
                             </form>
@@ -28,7 +28,7 @@
                                 <% Banners.forEach(function(banner){ %>
                                     <tr>
                                         <td>
-                                            <a href='/images/uploads/<%= banner.attachment %>' target='_blank'>
+                                            <a href='<%= banner.attachment %>' target='_blank'>
                                                 <%= banner.attachment %>
                                             </a>
                                         </td>

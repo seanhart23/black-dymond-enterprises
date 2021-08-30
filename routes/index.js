@@ -24,6 +24,7 @@ var express        = require('express'),
     sow            = require('../models/sow'),
     serviceType    = require('../models/serviceType'),
     pdf            = require('../models/pdf'),
+    upload = require("../middleware/upload"),
     url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
         useNewUrlParser: true,
@@ -229,7 +230,7 @@ router.delete('/timesheet/:id', middleware.isLoggedIn, function (req, res) {
     });
 });
 
-router.post('/timesheets', uploadStorage.single("upload"), middleware.isLoggedIn, function (req, res) {
+router.post('/timesheets', upload.single("file"), middleware.isLoggedIn, function (req, res) {
     if (req.file != undefined) {
         var newTimesheet = {
             cspid: req.body.cspid,
@@ -259,7 +260,7 @@ router.post('/timesheets', uploadStorage.single("upload"), middleware.isLoggedIn
             validation: req.body.validation,
             missedClassDate: req.body.missedClassDate,
             timesheetHours: req.body.timesheetHours,
-            attachment: req.file.originalname
+            attachment: `http://localhost:3000/file/${req.file.filename}`
         }
     } else {
         var newTimesheet = {
@@ -413,11 +414,11 @@ router.get('/uploadpayroll', middleware.isLoggedIn, (req, res) => {
     })
 });
 
-router.post('/uploadpayroll', uploadStorage.single("upload"), middleware.isLoggedIn, (req, res) => {
+router.post('/uploadpayroll', upload.single("file"), middleware.isLoggedIn, (req, res) => {
     var newPayroll = new Payroll({
         cspid: req.body.cspid,
         payperiod: req.body.payperiod,
-        attachment: req.file.originalname,
+        attachment: `http://localhost:3000/file/${req.file.filename}`,
     })
 
     Payroll.create(newPayroll, function (err, newlyCreated) {
@@ -475,7 +476,7 @@ router.delete('/ticketreporting/:id', middleware.isLoggedIn, function (req, res)
     });
 });
 
-router.post('/ticketentry', uploadStorage.single("upload"), middleware.isLoggedIn, function (req, res) {
+router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, function (req, res) {
     if (req.file != undefined) {
         var newTicket = {
             cspid: req.body.cspid,
@@ -485,7 +486,7 @@ router.post('/ticketentry', uploadStorage.single("upload"), middleware.isLoggedI
             additionalDetails: req.body.additionalDetails,
             ticketNumber: req.body.ticketNumber,
             adminresponse: req.body.adminresponse,
-            attachment: req.file.originalname
+            attachment: `http://localhost:3000/file/${req.file.filename}`
         }
     } else {
         var newTicket = {
@@ -625,10 +626,10 @@ router.get('/pdfs', middleware.isLoggedIn, (req, res) => {
 })
 
 
-router.post('/pdfs',uploadStorage.single("upload"), middleware.isLoggedIn, (req, res) => {
+router.post('/pdfs',upload.single("file"), middleware.isLoggedIn, (req, res) => {
     var newPdf = new pdf({
         title: req.body.title,
-        attachment: req.file.originalname,
+        attachment: `http://localhost:3000/file/${req.file.filename}`,
     })
 
     pdf.create(newPdf, function (err, newlyCreated) {
@@ -707,9 +708,9 @@ router.get('/banner', middleware.isLoggedIn, function (req, res) {
     })
 })
 
-router.post('/banner', uploadStorage.single("upload"), middleware.isLoggedIn, function (req, res) {
+router.post('/banner', upload.single("file"), middleware.isLoggedIn, function (req, res) {
         var newBanner = {
-            attachment: req.file.originalname
+            attachment: `http://localhost:3000/file/${req.file.filename}`
         }
 
     Banner.create(newBanner, function (err, newlyCreated) {
@@ -744,11 +745,12 @@ router.get('/sow', middleware.isLoggedIn, (req, res) => {
     })
 });
 
-router.post('/sow', uploadStorage.single("upload"), middleware.isLoggedIn, (req, res) => {
+router.post('/sow', upload.single("file"), middleware.isLoggedIn, (req, res) => {
+
     var newSow = new sow({
         cspid: req.body.cspid,
         sowDate: req.body.sowDate,
-        attachment: req.file.originalname,
+        attachment: `http://localhost:3000/file/${req.file.filename}`,
     })
 
     sow.create(newSow, function (err, newlyCreated) {

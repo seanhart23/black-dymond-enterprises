@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="upload">Select SOW to Upload</label>
-                                    <input type="file" class="form-control-file" name='upload'>
+                                    <input type="file" class="form-control-file" name='file'>
                                 </div>
                                 <button type="submit">Upload SOW</button>
                             </form>
@@ -51,7 +51,7 @@
                                         <% if(sow.cspid === user.cspid){ %>
                                             <td><%= user.lastName %>, <%= user.firstName %></td>
                                         <% }}) %>
-                                    <td><a href='./images/uploads/<%= sow.attachment %>' target='_blank'><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                                    <td><a href='<%= sow.attachment %>' target='_blank'><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                                     <td>
                                         <form action="/sow/<%= sow._id %>?_method=DELETE" method="POST" class="delete-form">
                                             <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
