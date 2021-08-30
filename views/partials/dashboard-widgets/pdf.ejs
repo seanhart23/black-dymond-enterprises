@@ -3,7 +3,7 @@
     <hr>
     <ul>
         <% pdfs.forEach(function(pdf){ %>
-            <li><a href='./images/uploads/<%= pdf.attachment %>'>
+            <li><a href='<%= pdf.attachment %>'>
                     <%= pdf.title %>
                 </a></li>
             <% }) %>
