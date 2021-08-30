@@ -629,7 +629,7 @@ router.get('/pdfs', middleware.isLoggedIn, (req, res) => {
 router.post('/pdfs',upload.single("file"), middleware.isLoggedIn, (req, res) => {
     var newPdf = new pdf({
         title: req.body.title,
-        attachment: `https://black-dymond-enterprises.herokuapp.com/${req.file.filename}`,
+        attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`,
     })
 
     pdf.create(newPdf, function (err, newlyCreated) {
