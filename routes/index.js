@@ -430,6 +430,16 @@ router.post('/uploadpayroll', upload.single("file"), middleware.isLoggedIn, (req
     });
 });
 
+router.delete('/uploadpayroll/:id', middleware.isLoggedIn, function (req, res) {
+    Payroll.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/viewpayroll');
+        } else {
+            res.redirect('/viewpayroll');
+        }
+    });
+});
+
 router.get('/viewpayroll', middleware.isLoggedIn, (req, res) => {
     User.find({}, function (err, allUsers) {
         Payroll.find({}, function (err, allPayrolls) {
@@ -441,6 +451,7 @@ router.get('/viewpayroll', middleware.isLoggedIn, (req, res) => {
         })
     })
 });
+
 
 /** TICKET ROUTES */
 

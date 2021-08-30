@@ -8,11 +8,13 @@
                     <div class='col-lg-10' id='right'>
                         <div class='title'>View Payroll Invoices</div>
                         <div class='row'>
-                            <div class='col-lg-5'>
+                            <div class='col-lg-7'>
                                 <table id='payroll'>
                                     <tr>
                                         <th class='payPeriod'>Pay Period Ending On</th>
-                                        <th>Download PDF</th>
+                                        <th class='name'>Employee</th>
+                                        <th class='name'>Download PDF</th>
+                                        <th>Actions</th>
                                     </tr>
                                     <% payrolls.forEach(function(payroll){ %>
 
@@ -23,7 +25,20 @@
                                                         <%= date %>
                                                     </td>
                                                     <td>
+                                                        <% users.forEach(function(user){ %>
+                                                            <% if(user.cspid===payroll.cspid){ %>
+                                                                <%= user.lastName %>, <%= user.firstName %>
+                                                                    
+                                                                    <% } %>
+                                                                    <% }) %>
+                                                    </td>
+                                                    <td>
                                                         <a href='<%= payroll.attachment %>' target='_blank'>Payroll Invoice</a>
+                                                    </td>
+                                                    <td class='action'>
+                                                        <form action="/uploadpayroll/<%= payroll._id %>?_method=DELETE" method="POST" class="delete-form">
+                                                            <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                        </form>
                                                     </td>
                                                 </tr>
 
@@ -48,7 +63,7 @@
                                         <% }) %>
 
                             </div>
-                            <div class='col-lg-5'></div>
+                            <div class='col-lg-3'></div>
                         </div>
 
                        
