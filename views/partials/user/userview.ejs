@@ -61,10 +61,27 @@
                     <tr>
                         <td class='label'>Notes:</td>
                         <td>
-                            <%= user.notes %>
+                            <% userNotes.forEach(function(userNote){ %>
+                                <% if(user.id===userNote.userId){ %>
+                                    <% var date=userNote.created.toLocaleDateString() %>
+                                        <% var time=userNote.created.toLocaleTimeString() %>
+                                            <tr>
+                                                <td class='datestamp'>
+                                                    <%= date %> - <%= time %>:
+                                                </td>
+                                                <td>
+                                                    <%= userNote.comment %>
+                                                        <% if( userNote.attachment !=null){ %>
+                                                            - <a href='<%= userNote.attachment %>' target='_blank'>Download</a>
+                                                            <% } %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                                <% }) %>
                         </td>
                     </tr>
                 </table>
+                                                    <%- include('./notes.ejs') -%>
             </div>
         </div>
 </div>

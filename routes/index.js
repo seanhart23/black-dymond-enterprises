@@ -24,6 +24,7 @@ var express        = require('express'),
     sow            = require('../models/sow'),
     serviceType    = require('../models/serviceType'),
     pdf            = require('../models/pdf'),
+    userNote       = require('../models/usernotes'),
     ticketResponse = require('../models/ticketresponse'),
     upload = require("../middleware/upload"),
     url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
@@ -392,12 +393,37 @@ router.delete('/edituser/:id', middleware.isLoggedIn, function (req, res) {
 router.get('/user/:id', middleware.isLoggedIn, function (req, res) {
     User.findById(req.params.id, function (err, foundUser) {
         client.find({}, function (err, allClients) {
+        userNote.find({}, function (err, allUserNotes) {
             if (err) {
                 console.log(err);
             } else {
-                res.render("user", { user: foundUser, clients: allClients });
+                res.render("user", { user: foundUser, clients: allClients, userNotes: allUserNotes });
             }
         });
+    });
+    });
+});
+
+router.post('/usernote', upload.single("file"), middleware.isLoggedIn, function (req, res) {
+    if (req.file != undefined) {
+        var newUserNote= {
+            userId: req.body.user_id,
+            comment: req.body.comment,
+            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
+        }
+    } else {
+        var newUserNote = {
+            userId: req.body.user_id,
+            comment: req.body.comment,
+        }
+    }
+
+    userNote.create(newUserNote, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/user/" + req.body.user_id);
+        }
     });
 });
 
