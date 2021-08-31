@@ -51,7 +51,15 @@
                                                         <%= date %>
                                                     </td>
                                                     <td>
-                                                        <a href='./images/uploads/<%= payroll.attachment %>' target='_blank'>Payroll Invoice</a>
+                                                    <% users.forEach(function(user){ %>
+                                                        <% if(user.cspid===payroll.cspid){ %>
+                                                            <%= user.lastName %>, <%= user.firstName %>
+                                                    
+                                                                    <% } %>
+                                                                        <% }) %>
+                                                    </td>
+                                                    <td>
+                                                        <a href='<%= payroll.attachment %>' target='_blank'>Payroll Invoice</a>
                                                     </td>
                                                 </tr>
                                             </table>
