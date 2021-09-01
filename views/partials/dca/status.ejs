@@ -1,0 +1,135 @@
+<div class='title'>DCA Request Status</div>
+<% if (currentUser.role === "Admin"){ %>
+    <% dcas.forEach(function(dca){ %>
+            <form action="/dca/<%= dca._id %>?_method=DELETE" method="POST" class="delete-form trash">
+                <button class='btn btn-sm' id='deleteButton'>Delete</button>
+            </form>
+            <table id='dca'>
+                <tr>
+                    <td class='label'>Requested By:</td>
+                    <td>
+                        <% users.forEach(function(user){ %>
+                            <% if(dca.cspid === user.cspid){ %>
+                                <%= user.lastName %>, <%= user.firstName %>
+                            <% } %>
+                        <% }) %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Type:</td>
+                    <td>
+                        <%= dca.type %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Date Requested:</td>
+                    <td>
+                        <%= dca.created.toLocaleDateString() %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Preference:</td>
+                    <td>
+                        <%= dca.preference %>
+                    </td>
+                </tr>
+                <tr hidden>
+                    <td class='label'>Request Status:</td>
+                    <td>
+                        <%= dca.status %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>Comments:</td>
+                    <td>
+                        <%= dca.comment %>
+                    </td>
+                </tr>
+                <% dcaResponses.forEach(function(dcaResponse){ %>
+                    <% if(dcaResponse.dcaId === dca.id){ %>
+                        <tr>
+                            <td><%= dcaResponse.created.toLocaleDateString() %> - <%= dcaResponse.created.toLocaleTimeString() %>: </td>
+                            <td><%= dcaResponse.comment %></td>
+                        </tr>
+                    <% } %>
+                <% }) %>
+            </table>
+            <p>
+                <a class="addComment" data-toggle="collapse" href="#a<%= dca.id %>" role="button" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    Add Comment...
+                </a>
+            </p>
+            <div class="collapse" id="a<%= dca.id %>">
+                <form action='/dcaresponse' method='POST' enctype="multipart/form-data" action="send">
+                    <div class="form-group">
+                        <input type='text' class='form-control' name='dcaId' value='<%= dca.id %>' hidden>
+                    </div>
+                    <div class="form-group">
+                        <textarea type='text' class='form-control' name='comment'></textarea>
+                    </div>
+                    <button type='submit' id=''>Submit Comment</button>
+                </form>
+            </div>
+            <hr>
+    <% }) %>
+<% } else { %>
+    <% dcas.forEach(function(dca){ %>
+        <% if(dca.cspid === currentUser.cspid){ %>
+            <table id='dca'>
+                <tr>
+                    <td class='label'>Type:</td>
+                    <td><%= dca.type %></td>
+                </tr>
+                <tr hidden>
+                    <td class='label'>Date Requested:</td>
+                    <td><%= dca.created.toLocaleDateString() %></td>
+                </tr>
+                <tr>
+                    <td class='label'>Preference:</td>
+                    <td><%= dca.preference %></td>
+                </tr>
+                <tr>
+                    <td class='label'>Request Status:</td>
+                    <td><%= dca.status %></td>
+                </tr>
+                <tr>
+                    <td class='label'>Comments:</td>
+                    <td><%= dca.comment %></td>
+                </tr>
+                <% dcaResponses.forEach(function(dcaResponse){ %>
+                    <% if(dcaResponse.dcaId===dca.id){ %>
+                        <tr>
+                            <td>
+                                <%= dcaResponse.created.toLocaleDateString() %> - <%= dcaResponse.created.toLocaleTimeString() %>:
+                            </td>
+                            <td>
+                                <%= dcaResponse.comment %>
+                            </td>
+                        </tr>
+                        <% } %>
+                            <% }) %>
+                                </table>
+                                <p>
+                                    <a class="addComment" data-toggle="collapse" href="#a<%= dca.id %>" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Add Comment...
+                                    </a>
+                                </p>
+                                <div class="collapse" id="a<%= dca.id %>">
+                                    <form action='/dcaresponse' method='POST' enctype="multipart/form-data" action="send">
+                                        <div class="form-group">
+                                            <input type='text' class='form-control' name='dcaId' value='<%= dca.id %>' hidden>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea type='text' class='form-control' name='comment'></textarea>
+                                        </div>
+                                        <button type='submit' id=''>Submit Comment</button>
+                                    </form>
+                                </div>
+            </table>
+            <hr>
+        <% } %>
+    <% }) %>
+<% } %>
+

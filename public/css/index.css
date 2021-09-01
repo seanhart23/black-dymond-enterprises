@@ -12,6 +12,11 @@ a {
     margin-top: 25px;
 }
 
+.addComment {
+    font-size: 12px;
+    padding-left: 10px;
+}
+
 .alert-preview {
     width: 100%;
     border: 1px solid darkblue;
@@ -86,6 +91,14 @@ button {
     text-align: right;    
     box-shadow: 2px 2px 10px gray;
     border-radius: 5px;
+}
+
+#dca {
+    font-size: 14px;
+}
+
+#dca td {
+    width: 200px;
 }
 
 #deleteButton {
@@ -249,6 +262,10 @@ html {
     margin-top: 20px;
 }
 
+.responseArea {
+    padding: 0px 20px;
+}
+
 .section {
     /* margin-top: 30px; */
 }
@@ -313,6 +330,10 @@ th {
 .tooltiptd {
     width: 150px;
     padding: 10px 5px;
+}
+
+.trash {
+    float: right;
 }
 
 #validation {

@@ -26,6 +26,8 @@ var express        = require('express'),
     pdf            = require('../models/pdf'),
     userNote       = require('../models/usernotes'),
     ticketResponse = require('../models/ticketresponse'),
+    dcaResponse    = require('../models/dcaresponse'),
+    Dca            = require('../models/dca'),
     upload = require("../middleware/upload"),
     url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
@@ -740,13 +742,13 @@ router.delete('/servicetype/:id', middleware.isLoggedIn, function (req, res) {
 });
 
 router.get('/servicetype', middleware.isLoggedIn, function (req, res) {
-        serviceType.find({}, function (err, allServicetypes) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render("servicetype", { serviceType: allServicetypes });
-            }
-        })
+    serviceType.find({}, function (err, allServicetypes) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("servicetype", { serviceType: allServicetypes });
+        }
+    })
 });
 
 /** CMS */
@@ -845,6 +847,65 @@ router.get('/viewsow', middleware.isLoggedIn, (req, res) => {
             }
         })
     })
+});
+
+/********** DCA Scheduling **********/
+router.get('/dca', middleware.isLoggedIn, (req, res) => {
+    User.find({}, function (err, allUsers) {
+        Dca.find({}, function (err, allDcas) {
+            dcaResponse.find({}, function (err, allDcaResponses) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render("dcascheduling", { users: allUsers, dcas: allDcas, dcaResponses: allDcaResponses });
+                }
+            })
+        })
+    })
+});
+
+router.post('/dca', upload.single("file"), middleware.isLoggedIn, (req, res) => {
+    var newDca = new Dca({
+        type: req.body.type,
+        cspid: req.body.cspid,
+        preference: req.body.preference,
+        status: req.body.status,
+        comment: req.body.comment,
+    })
+
+    Dca.create(newDca, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/dca");
+        }
+    });
+});
+
+router.delete('/dca/:id', middleware.isLoggedIn, function (req, res) {
+    Dca.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/dca');
+        } else {
+            res.redirect('/dca');
+        }
+    });
+});
+
+router.post('/dcaresponse', upload.single("file"), middleware.isLoggedIn, function (req, res) {
+
+    var newdcaResponse = {
+        dcaId: req.body.dcaId,
+        comment: req.body.comment,
+    }
+
+    dcaResponse.create(newdcaResponse, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/dca");
+        }
+    });
 });
 
 module.exports = router;
