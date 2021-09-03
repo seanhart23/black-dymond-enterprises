@@ -6,7 +6,7 @@
                     <%- include('./partials/global/menu.ejs') -%>
                 </div>
                 <% if(currentUser.role==="Admin" ){ %>
-                    <div class='col-lg-5' id='right'>
+                    <div class='col-lg-4' id='right'>
                         <div class='title'>Add a Service Type</div>
                         <form action='/servicetype' method='POST' action="send" id='add-submission'>
                             <div class='form-group'>
@@ -16,7 +16,7 @@
                             <button type='submit'>Add</button>
                         </form><br>
                     </div>
-                    <div class='col-lg-5' id='right'>
+                    <div class='col-lg-6' id='right'>
                         <div class='title'>Manage Service Types</div>
                         <table class='side-table'>
                             <tr>

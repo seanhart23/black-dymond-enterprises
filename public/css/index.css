@@ -78,6 +78,9 @@ button {
 .datestamp {
     font-weight: bolder;
     padding-right: 25px;
+    padding-bottom: 15px;
+    width: 200px;
+    vertical-align: top;
 }
 
 #date-box {
@@ -220,6 +223,10 @@ html {
 .navbar-brand {
     color: white!important;
     font-weight: 600;
+}
+
+.note {
+    vertical-align: top;
 }
 
 .padding-left {
