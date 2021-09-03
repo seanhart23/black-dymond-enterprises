@@ -5,13 +5,16 @@
                 var day = date.getDate(),
                 month = date.getMonth() + 1,
                 year = date.getFullYear(),
-                hour = date.getHours().toLocaleString('en-US', { timeZone: 'EST' }),
-                min  = date.getMinutes().toLocaleString('en-US', { timeZone: 'EST' });
+
+                date = new Date(date.getTime() - date.getTimezoneOffset() * 60000),
+                hour = date.getHours(),
+                min  = date.getMinutes();
 
                 month = (month < 10 ? "0" : "") + month;
                 day = (day < 10 ? "0" : "") + day;
                 hour = (hour < 10 ? "0" : "") + hour;
                 min = (min < 10 ? "0" : "") + min;
+
                 var today = year + "-" + month + "-" + day,
                 now = hour + ":" + min;
             %>
