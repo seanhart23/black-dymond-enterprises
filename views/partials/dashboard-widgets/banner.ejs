@@ -1,12 +1,14 @@
 <div id='banner'>
 </div>
 <% banners.forEach(function(banner){ %>
-<style>
-#banner {
-    background-image: url('<%= banner.attachment %>');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-</style>
+    <% if( banner.attachment != null){ %>
+        <style>
+        #banner {
+            background-image: url('<%= banner.attachment %>');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        </style>
+    <% } %>
 <% }) %>

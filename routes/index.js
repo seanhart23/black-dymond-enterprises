@@ -774,9 +774,17 @@ router.get('/banner', middleware.isLoggedIn, function (req, res) {
 })
 
 router.post('/banner', upload.single("file"), middleware.isLoggedIn, function (req, res) {
+    if (req.file != undefined) {
         var newBanner = {
             attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
         }
+    } else {
+        var newBanner = {
+            title: req.body.title,
+            content: req.body.content,
+        }
+    }
+
 
     Banner.create(newBanner, function (err, newlyCreated) {
         if (err) {

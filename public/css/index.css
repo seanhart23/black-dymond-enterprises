@@ -128,6 +128,14 @@ button {
     color: white;
 }
 
+.form-check {
+    width: 40px;
+}
+
+.form-check-inline {
+    justify-content: center;
+}
+
 .hide {
     display: none;
 }
@@ -313,6 +321,22 @@ th {
     padding: 10px;
 }
 
+#timeslots {
+    width: 100%;
+    overflow-x: scroll;
+    border: 1px solid lightgray;
+    padding: 15px;
+}
+
+#timetable td {
+    text-align: center;
+    padding: 5px;
+}
+
+#timetable th {
+    text-decoration: none;
+}
+
 .title {
     font-size: 24px;
     width: 100%;
@@ -341,6 +365,10 @@ th {
     color: black;
     font-weight: 400;
     padding: 20px;
+}
+
+#validation .form-check {
+    width: auto;
 }
 
 #welcome {

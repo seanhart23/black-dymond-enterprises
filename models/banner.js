@@ -1,6 +1,8 @@
 var mongoose = require("mongoose");
 
 var bannerSchema = mongoose.Schema({
+    title: String,
+    content: String,
     attachment: String,
     created: { type: Date, default: Date.now }
 });

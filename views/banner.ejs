@@ -9,6 +9,48 @@
                     <!-- <div class='title'>Manage Important Links</div> -->
                     <div class='row'>
                         <div class='col-lg-6'>
+                            <div class='title'>Add Main Content</div>
+                            <form action='/banner' method='POST' enctype="multipart/form-data" action="send">
+                                <div class="form-group" id=''>
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" name='title'>
+                                </div>
+                                <div class="form-group" id=''>
+                                    <label>Content</label>
+                                    <textarea type="text" class="form-control" name='content'></textarea>
+                                </div>
+                                <button type='submit' id='submit'>Add Main Content</button>
+                            </form>
+                        </div>
+                        <div class='col-lg-6'>
+                            <div class='title'>Main Content</div>
+                            <table class='side-table'>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Actions</th>
+                                </tr>
+                                <% Banners.forEach(function(banner){ %>
+                                    <% if (banner.title !=null){ %>
+                                        <tr>
+                                            <td>
+                                                <%= banner.title %>
+                                            </td>
+
+                                            <td>
+                                                <form action="/banner/<%= banner._id %>?_method=DELETE" method="POST" class="delete-form">
+                                                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash"
+                                                            aria-hidden="true"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </div>
+                                </table>
+                            <% } %>
+                        <% }) %>
+                    </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-lg-6'>
                             <div class='title'>Add Banner Image</div>
                             <form action='/banner' method='POST' enctype="multipart/form-data" action="send">
                                 <div class="form-group" id='upload'>
@@ -26,23 +68,28 @@
                                     <th>Actions</th>
                                 </tr>
                                 <% Banners.forEach(function(banner){ %>
-                                    <tr>
-                                        <td>
-                                            <a href='<%= banner.attachment %>' target='_blank'>
-                                                <%= banner.attachment %>
-                                            </a>
-                                        </td>
+                                    <% if (banner.attachment !=null){ %>
+                                        <tr>
+                                            <td>
+                                                <a href='<%= banner.attachment %>' target='_blank'>
+                                                    <%= banner.attachment %>
+                                                </a>
+                                            </td>
 
-                                        <td>
-                                            <form action="/banner/<%= banner._id %>?_method=DELETE" method="POST"
-                                                class="delete-form">
-                                                <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                        </div>
-                        <% }) %>
+                                            <td>
+                                                <form action="/banner/<%= banner._id %>?_method=DELETE" method="POST" class="delete-form">
+                                                    <button class='btn btn-sm' id='deleteButton'><i class="fa fa-trash"
+                                                            aria-hidden="true"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
                             </table>
+                        <% } %>
+                    <% }) %>
+                </div>
+                    </div>                
+                                                            </div>
+
                     </div>
                 </div>
 
