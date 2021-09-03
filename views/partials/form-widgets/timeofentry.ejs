@@ -2,7 +2,7 @@
     <label>Time of Ticket Entry</label><br>
     <div class="input-group" data-provide="datepicker">
             <%  var date = new Date();
-                var day = date.getDate().toLocaleString(en-us),
+                var day = date.getDate().toLocaleString('en-US', { timeZone: 'UTC' })),
                 month = date.getMonth() + 1,
                 year = date.getFullYear(),
                 hour = date.getHours(),
