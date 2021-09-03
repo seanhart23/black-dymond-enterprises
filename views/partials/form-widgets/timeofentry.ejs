@@ -5,8 +5,8 @@
                 var day = date.getDate(),
                 month = date.getMonth() + 1,
                 year = date.getFullYear(),
-                hour = date.getHours().toLocaleString('en-US', { timeZone: 'UTC' }),
-                min  = date.getMinutes().toLocaleString('en-US', { timeZone: 'UTC' });
+                hour = date.getHours().toLocaleString('en-US', { timeZone: 'EST' }),
+                min  = date.getMinutes().toLocaleString('en-US', { timeZone: 'EST' });
 
                 month = (month < 10 ? "0" : "") + month;
                 day = (day < 10 ? "0" : "") + day;
