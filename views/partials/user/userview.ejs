@@ -44,6 +44,14 @@
                             <%= user.role %>
                         </td>
                     </tr>
+                        <% if(user.role === 'Candidate'){ %>
+                        <tr>
+                            <td class='label'>Candidate Status:</td>
+                            <td>
+                                <%= user.status %>
+                            </td>
+                        </tr>
+                        <% } %>
                     <tr>
                         <td class='label'>Hire Date:</td>
                         <td><%= user.hireDate %></td>
@@ -70,11 +78,23 @@
                                                     <%= date %> - <%= time %>:
                                                 </td>
                                                 <td class='note'>
-                                                    <%= userNote.comment %>
+                                                    <form action="/usernote/<%= userNote._id %>?_method=PUT" method="post">
+                                                        <input type="text" class="form-control-file" name='user_id' value='<%= user._id %>' hidden>
+                                                    
+                                                    <input value='<%= userNote.comment %>' name='comment' class='note-input'>
                                                         <% if( userNote.attachment !=null){ %>
                                                             - <a href='<%= userNote.attachment %>' target='_blank'>Download</a>
                                                             <% } %>
+                                                            <button type='submit' class='word-submit'>Update</button> | 
+                                                        </form>
                                                 </td>
+                                                <% if (currentUser.role === 'Admin'){ %>
+                                                    <td class='note'>
+                                                        <form action="/usernote/<%= userNote._id %>?_method=DELETE" method="POST" class="delete-form">
+                                                            <button class='word-submit' id='deleteButton'> Delete</button>
+                                                        </form>
+                                                    </td>
+                                                <% } %>
                                             </tr>
                                             <% } %>
                                                 <% }) %>

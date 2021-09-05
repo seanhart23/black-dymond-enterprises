@@ -327,6 +327,7 @@ router.post('/register', middleware.isLoggedIn, (req, res) => {
             zip: req.body.zip,
             country: req.body.country,
             notes: req.body.notes,
+            status: req.body.status,
         })
 
     User.register(newUser, req.body.password, function (err, user) {
@@ -369,6 +370,8 @@ router.put('/edituser/:id', middleware.isLoggedIn, function (req, res) {
             zip: req.body.zip,
             country: req.body.country,
             notes: req.body.notes,
+            status: req.body.status,
+            client: req.body.client,
         }};
         db.collection("users").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
             if (err) {
@@ -429,6 +432,34 @@ router.post('/usernote', upload.single("file"), middleware.isLoggedIn, function 
     });
 });
 
+router.put('/usernote/:id', middleware.isLoggedIn, function (req, res) {
+    mongoose.connect(url, function (err, db) {
+        if (err) throw err;
+        var newvalues = {
+            $set: {
+                comment: req.body.comment,
+            }
+        };
+        db.collection("usernotes").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('User Note  Updated')
+            }
+        });
+    })
+    res.redirect("/user/" + req.body.user_id);
+});
+
+router.delete('/usernote/:id', middleware.isLoggedIn, function (req, res) {
+    userNote.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/dashboard');
+        } else {
+            res.redirect('/dashboard');
+        }
+    });
+});
 /** PAYROLL ROUTES */
 
 router.get('/uploadpayroll', middleware.isLoggedIn, (req, res) => {

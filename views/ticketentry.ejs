@@ -5,6 +5,7 @@
                 <div class='col-lg-2' id='left'>
                     <%- include('./partials/global/menu.ejs') -%>
                 </div>
+                    <script src="./js/ticket.js"></script>
                 <div class='col-lg-10' id='right'>
                     <div class='title'>Employee Self Service Ticket System</div>
                     <p class='padding-left'>Fill out the form below to submit a Service ticket and you will be receiving email correspondence with an update once
@@ -13,15 +14,12 @@
                     <div class='row'>
                         <div class='col-lg-7'>
                         <form action='/ticketentry' method='POST' enctype="multipart/form-data" action="send">
-                            <!-- <%- include('./partials/form-widgets/dateofentry.ejs') -%> -->
-                            <!-- <%- include('./partials/form-widgets/timeofentry.ejs') -%> -->
                             <%- include('./partials/form-widgets/associateId.ejs') -%>
                             <%- include('./partials/form-widgets/servicetype.ejs') -%>
                             <%- include('./partials/form-widgets/additionaldetails.ejs') -%>
                             <%- include('./partials/form-widgets/ticketnumber.ejs') -%>
                             <%- include('./partials/form-widgets/status.ejs') -%>
                             <%- include('./partials/form-widgets/upload.ejs') -%>
-                            <textarea type='text' name='adminresponse' hidden>No response yet</textarea>
                             <button type='submit' id='submit'>Submit Ticket</button>
                         </form>
                         </div>
@@ -30,4 +28,4 @@
                 </div>
             </div>
     </div>
-    <%- include('./partials/global/footer.ejs') -%>
+    <!-- <%- include('./partials/global/footer.ejs') -%> -->

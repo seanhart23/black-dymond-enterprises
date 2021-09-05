@@ -1,6 +1,10 @@
+
 var date = moment().format("MMM Do, YYYY");
 
-document.getElementById('date').innerText = date;
+if (document.getElementById('date')){
+    document.getElementById('date').innerText = date;
+};
+
 var hideFields = function(){
     $("#howWasClass").hide();
     $("#cTime").hide();
@@ -27,6 +31,8 @@ var hideFields = function(){
     $("#logoutLateReason").hide();
     $("#additionalNotes").hide();
     $("#validation").hide();
+    $("#candidate_status").hide();
+    $("#candidate_status_edit").hide();
 }
 
 hideFields();
@@ -38,29 +44,101 @@ var getForm = function(){
         $("#cTime").show();
         $("#didYouAttend").show();
         $("#didYouVisit").show();
-        $("#didYouRecieve").show();
-        $("#ticketNumber").show();
-        $("#explainIssue").show();
-        $("#upload").show();
+        $("#didYouVisit").change(function () {
+            if (document.getElementById('visit').checked) {
+                $("#didYouRecieve").show();
+                $("#explainIssue").show();
+                $("#upload").show();
+                $("#recieve").change(function () {
+                    if (document.getElementById('recieve').checked) {
+                        $("#ticketNumber").show();
+                    }
+                })                
+                $("#didnotrecieve").change(function () {
+                    if (document.getElementById('didnotrecieve').checked) {
+                        $("#ticketNumber").hide();
+                    }
+                })
+            } else {
+                $("#didYouRecieve").hide();
+                $("#ticketNumber").hide();
+                $("#explainIssue").hide();
+                $("#upload").hide();
+            }
+        });
         $("#additionalInfo").show();
         $("#submit").show();
     } else if (submissionType === "Certification" || submissionType === "Production"){
         $("#timesheetHours").show();
         $("#totalHours").show();
         $("#didYouMiss").show();
-        $("#explainWhy").show();
-        $("#swap").show();
-        $("#swapGranted").show();
+            $("#missed").change(function () {
+                if (document.getElementById('missed').checked) {
+                    $("#explainWhy").show();
+                }
+            })
+            $("#didntmiss").change(function () {
+                if (document.getElementById('didntmiss').checked) {
+                    $("#explainWhy").hide();
+                }
+            })
+            $("#swap").show();
+                $("#swapped").change(function () {
+                    if (document.getElementById('swapped').checked) {
+                        $("#swapGranted").show();
+                    }
+                })
+                $("#notswapped").change(function () {
+                    if (document.getElementById('notswapped').checked) {
+                        $("#swapGranted").hide();
+                    }
+                })
         $("#release").show();
         $("#loginOnTime").show();
-        $("#loginLateReason").show();
+            $("#loggedinontime").change(function () {
+                if (document.getElementById('loggedinontime').checked) {
+                    $("#loginLateReason").hide();
+                }
+            })
+            $("#notloggedinontime").change(function () {
+                if (document.getElementById('notloggedinontime').checked) {
+                    $("#loginLateReason").show();
+                }
+            })
         $("#logoutOnTime").show();
-        $("#logoutLateReason").show();
+            $("#loggedoutontime").change(function () {
+                if (document.getElementById('loggedoutontime').checked) {
+                    $("#logoutLateReason").hide();
+                }
+            })
+            $("#notloggedoutontime").change(function () {
+                if (document.getElementById('notloggedoutontime').checked) {
+                    $("#logoutLateReason").show();
+                }
+            })
         $("#didYouVisit").show();
-        $("#didYouRecieve").show();
-        $("#ticketNumber").show();
-        $("#explainIssue").show();
-        $("#upload").show();
+        $("#didYouVisit").change(function () {
+            if (document.getElementById('visit').checked) {
+                $("#didYouRecieve").show();
+                $("#explainIssue").show();
+                $("#upload").show();
+                $("#recieve").change(function () {
+                    if (document.getElementById('recieve').checked) {
+                        $("#ticketNumber").show();
+                    }
+                })
+                $("#didnotrecieve").change(function () {
+                    if (document.getElementById('didnotrecieve').checked) {
+                        $("#ticketNumber").hide();
+                    }
+                })
+            } else {
+                $("#didYouRecieve").hide();
+                $("#ticketNumber").hide();
+                $("#explainIssue").hide();
+                $("#upload").hide();
+            }
+        });
         $("#additionalNotes").show();
         $("#validation").show();
         $("#submit").show();
@@ -78,10 +156,28 @@ var getForm = function(){
         $("#cTime").show();
         $("#didYouAttend").show();
         $("#didYouVisit").show();
-        $("#didYouRecieve").show();
-        $("#ticketNumber").show();
-        $("#explainIssue").show();
-        $("#upload").show();
+        $("#didYouVisit").change(function () {
+            if (document.getElementById('visit').checked) {
+                $("#didYouRecieve").show();
+                $("#explainIssue").show();
+                $("#upload").show();
+                $("#recieve").change(function () {
+                    if (document.getElementById('recieve').checked) {
+                        $("#ticketNumber").show();
+                    }
+                })
+                $("#didnotrecieve").change(function () {
+                    if (document.getElementById('didnotrecieve').checked) {
+                        $("#ticketNumber").hide();
+                    }
+                })
+            } else {
+                $("#didYouRecieve").hide();
+                $("#ticketNumber").hide();
+                $("#explainIssue").hide();
+                $("#upload").hide();
+            }
+        });
         $("#additionalInfo").show();
         $("#submit").show();
     } else if (submissionType === "Missed DTS Submission (Certification/Production)") {
@@ -89,19 +185,73 @@ var getForm = function(){
         $("#timesheetHours").show();
         $("#totalHours").show();
         $("#didYouMiss").show();
-        $("#explainWhy").show();
+        $("#missed").change(function () {
+            if (document.getElementById('missed').checked) {
+                $("#explainWhy").show();
+            }
+        })
+        $("#didntmiss").change(function () {
+            if (document.getElementById('didntmiss').checked) {
+                $("#explainWhy").hide();
+            }
+        })
         $("#swap").show();
-        $("#swapGranted").show();
+        $("#swapped").change(function () {
+            if (document.getElementById('swapped').checked) {
+                $("#swapGranted").show();
+            }
+        })
+        $("#notswapped").change(function () {
+            if (document.getElementById('notswapped').checked) {
+                $("#swapGranted").hide();
+            }
+        })
         $("#release").show();
         $("#loginOnTime").show();
-        $("#loginLateReason").show();
+        $("#loggedinontime").change(function () {
+            if (document.getElementById('loggedinontime').checked) {
+                $("#loginLateReason").hide();
+            }
+        })
+        $("#notloggedinontime").change(function () {
+            if (document.getElementById('notloggedinontime').checked) {
+                $("#loginLateReason").show();
+            }
+        })
         $("#logoutOnTime").show();
-        $("#logoutLateReason").show();
+        $("#loggedoutontime").change(function () {
+            if (document.getElementById('loggedoutontime').checked) {
+                $("#logoutLateReason").hide();
+            }
+        })
+        $("#notloggedoutontime").change(function () {
+            if (document.getElementById('notloggedoutontime').checked) {
+                $("#logoutLateReason").show();
+            }
+        })
         $("#didYouVisit").show();
-        $("#didYouRecieve").show();
-        $("#ticketNumber").show();
-        $("#explainIssue").show();
-        $("#upload").show();
+        $("#didYouVisit").change(function () {
+            if (document.getElementById('visit').checked) {
+                $("#didYouRecieve").show();
+                $("#explainIssue").show();
+                $("#upload").show();
+                $("#recieve").change(function () {
+                    if (document.getElementById('recieve').checked) {
+                        $("#ticketNumber").show();
+                    }
+                })
+                $("#didnotrecieve").change(function () {
+                    if (document.getElementById('didnotrecieve').checked) {
+                        $("#ticketNumber").hide();
+                    }
+                })
+            } else {
+                $("#didYouRecieve").hide();
+                $("#ticketNumber").hide();
+                $("#explainIssue").hide();
+                $("#upload").hide();
+            }
+        });
         $("#additionalNotes").show();
         $("#validation").show();
         $("#submit").show();
@@ -115,14 +265,26 @@ $("#submission").change(function () {
     getForm();
 });
 
+$("#role").change(function () {
+    var candidate_status = document.getElementById('role').value;
+    if (candidate_status === "Candidate"){
+        $('#candidate_status').show();
+    } else {
+        $('#candidate_status').hide();
+    }
+});
+
+$("#role_edit").change(function () {
+    var candidate_status = document.getElementById('role_edit').value;
+    if (candidate_status === "Candidate") {
+        $('#candidate_status_edit').show();
+    } else {
+        $('#candidate_status_edit').hide();
+    }
+});
+
 $(function () {
     $('[data-toggle="popover"]').popover()
 })
 
 $('#submission-info').popover("html: true")
-
-
-
-
-
-

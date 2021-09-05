@@ -17,7 +17,8 @@ var UserSchema = new mongoose.Schema({
     state: String,
     zip: String,
     country: String,
-    notes: String
+    notes: String,
+    status: String,
 });
 
 UserSchema.plugin(passportLocalMongoose);

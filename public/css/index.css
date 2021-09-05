@@ -109,6 +109,7 @@ button {
     padding: 0px;
     color: red;
     font-size: 12px;
+    height: auto;
 }
 
 .email {
@@ -132,7 +133,7 @@ button {
 }
 
 .form-check {
-    width: 40px;
+    width: auto;
 }
 
 .form-check-inline {
@@ -229,6 +230,13 @@ html {
     vertical-align: top;
 }
 
+.note-input {
+    padding: 0px;
+    line-height: auto;
+    margin: 0; 
+    border: none;
+    width: 300px;
+}
 .padding-left {
     padding-left: 10px;
     padding-right: 5px;
@@ -352,6 +360,10 @@ th {
     text-decoration: none;
 }
 
+#timetable .form-check {
+    width: 40px;
+}
+
 .title {
     font-size: 24px;
     width: 100%;
@@ -407,4 +419,12 @@ th {
 .widget-header {
     font-size: 20px;
     font-weight: bold;
+}
+
+.word-submit {
+    padding: 0px;
+    background: transparent;
+    height: auto;
+    color: red;
+    padding-left: 10px;
 }
