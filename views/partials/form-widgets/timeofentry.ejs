@@ -7,7 +7,7 @@
                 year = date.getFullYear(),
 
                 time = new Date(date.getTime() - date.getTimezoneOffset() * 60000),
-                hour = time.getHours() - 4,
+                hour = time.getHours(),
                 min  = time.getMinutes();
 
                 month = (month < 10 ? "0" : "") + month;

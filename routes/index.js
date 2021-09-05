@@ -526,6 +526,7 @@ router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, functi
             additionalDetails: req.body.additionalDetails,
             ticketNumber: req.body.ticketNumber,
             adminresponse: req.body.adminresponse,
+            status: req.body.status,
             attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
@@ -537,6 +538,7 @@ router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, functi
             additionalDetails: req.body.additionalDetails,
             ticketNumber: req.body.ticketNumber,
             adminresponse: req.body.adminresponse,
+            status: req.body.status,
         }
     }
 
@@ -568,7 +570,7 @@ router.put('/ticketentry/:id', middleware.isLoggedIn, function (req, res) {
         if (err) throw err;
         var newvalues = {
             $set: {
-                adminresponse: req.body.adminresponse,
+                status: req.body.status,
             }
         };
         db.collection("tickets").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
@@ -579,7 +581,7 @@ router.put('/ticketentry/:id', middleware.isLoggedIn, function (req, res) {
             }
         });
     })
-    res.redirect('/ticketreporting');
+    res.redirect("/ticketview/" + req.body.ticket_id );
 });
 
 router.post('/ticketresponse', upload.single("file"), middleware.isLoggedIn, function (req, res) {

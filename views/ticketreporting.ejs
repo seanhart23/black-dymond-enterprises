@@ -11,6 +11,7 @@
                         <tr>
                             <th class='date'>Date Submitted</th>
                             <th class='time'>Time Submitted</th>
+                            <th class='time'>Status</th>
                             <th class='name'>Submitted By</th>
                             <th class='type'>Service Type</th>
                             <th colspan='2'>Actions</th>
@@ -25,6 +26,9 @@
                                 </td>
                                 <td>
                                     <%= time %>
+                                </td>
+                                <td>
+                                    <%= ticket.status %>
                                 </td>
                                 <% users.forEach(function(user){ %>
                                     <% if(user.cspid===ticket.cspid){ %>
@@ -58,6 +62,9 @@
                                     </td>
                                     <td>
                                         <%= time %>
+                                    </td>
+                                    <td>
+                                        <%= ticket.status %>
                                     </td>
                                     <% users.forEach(function(user){ %>
                                         <% if(user.cspid===ticket.cspid){ %>

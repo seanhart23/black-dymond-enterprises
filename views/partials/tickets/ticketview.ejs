@@ -62,6 +62,39 @@
                             <%= ticket.created.toLocaleTimeString() %>
                         </td>
                     </tr>
+                    <% if(currentUser.role === 'Admin'){ %>
+                        <tr>
+                            <td class='label status'>Ticket Status</td>
+                            <td>
+                            <form action="/ticketentry/<%= ticket._id %>?_method=PUT" method="post">
+                                    <input type="text" name='ticket_id' value='<%= ticket._id %>' hidden>
+                                    <select name='status' required>
+                                        <% if(ticket.status === 'Open') { %>
+                                            <option selected>Open</option>
+                                            <option>Closed</option>
+                                            <option>Pending Resolution</option>
+                                        <% } else if(ticket.status === 'Closed') { %>
+                                            <option>Open</option>
+                                            <option selected>Closed</option>
+                                            <option>Pending Resolution</option>
+                                        <% } else { %>
+                                            <option>Open</option>
+                                            <option>Closed</option>
+                                            <option selected>Pending Resolution</option>
+                                        <% } %>
+                                    </select>
+                                    <button type='submit'>Update Status</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } else { %>
+                        <tr>
+                            <td class='label'>Ticket Status</td>
+                            <td>
+                                <%= ticket.status %>
+                            </td>
+                        </tr>
+                    <% } %>
                 </table>
                 <br>
                         <table class='ticketview'>
