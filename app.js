@@ -13,7 +13,7 @@ var express        = require('express'),
     upload         = require("./routes/upload"),
     Grid           = require("gridfs-stream"),
     router         = express.Router(),
-    connection = mongoose.connect("mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority", { useUnifiedTopology: true });
+    connection = mongoose.connect("mongodb+srv://amber:Dymond100!@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority", { useUnifiedTopology: true });
 
 
 let gfs;

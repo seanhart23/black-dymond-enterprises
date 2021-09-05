@@ -28,13 +28,13 @@ var express        = require('express'),
     ticketResponse = require('../models/ticketresponse'),
     dcaResponse    = require('../models/dcaresponse'),
     Dca            = require('../models/dca'),
-    upload = require("../middleware/upload"),
-    url            = "mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
+    upload         = require("../middleware/upload"),
+    url            = "mongodb+srv://amber:Dymond100!@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }),
-    connection     = mongoose.connect("mongodb+srv://sean:admin@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority", { useUnifiedTopology: true });
+        connection = mongoose.connect("mongodb+srv://amber:Dymond100!@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority", { useUnifiedTopology: true });
 
 mongoose.set('useFindAndModify', false);
 
