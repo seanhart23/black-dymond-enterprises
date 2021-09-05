@@ -36,9 +36,12 @@
                     </tr>
                     <tr>
                         <td class='label'>Attachment:</td>
-                        <td>
-                            <a href='<%= ticket.attachment %>' target='_blank'>View attachment</a>
-                        </td>
+                            <% if(!ticket.attachment){  %>
+                                <td> 
+                                </td>
+                            <% } else {  %>
+                                <td><a href='<%= ticket.attachment %>' target='_blank'>View attachment</a></td>
+                            <% } %>
                     </tr>
                     <tr>
                         <td class='label'>Additional Details:</td>
