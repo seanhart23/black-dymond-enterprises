@@ -84,12 +84,25 @@
                                         <option>Inactive</option>
                                     </select>
                                 </div>
-                                <% if(user.role === 'Candidate'){ %>
-                                <div class="form-group col-md-5" id='candidate_status_edit'>
-                                    <label>Candidate Status</label>
-                                    <input class="form-control" name="status" value='<%= user.status %>'>
-                                </div>
+                                <div class="form-group col-md-5">
+                                <% if(user.role==='Candidate' ){ %>
+                                    <div class="form-group" id='candidate_status_edit'>
+                                        <label>Candidate Status</label>
+                                        <input class="form-control" name="status" value='<%= user.status %>'>
+                                    </div>
                                 <% } %>
+                                </div>
+                                </div>
+                                <div class='form-row'>
+                                    <div class="form-group col-md-5">
+                                        <label>Classification</label>
+                                        <select class="form-control" name="classification" id='role'>
+                                            <option disabled selected><%= user.classification %></option>
+                                            <option>Internal Staff</option>
+                                            <option>Certification</option>
+                                            <option>Production</option>
+                                        </select>
+                                    </div>
                                 <div class="form-group col-md-5">
                                     <label>Company</label>
                                     <select class="form-control" name='client' id='client' placeholder='Client Name'>

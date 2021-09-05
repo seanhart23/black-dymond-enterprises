@@ -11,6 +11,7 @@
                         <table id='employees'>
                             <tr>
                                 <th class='cspid'>CSPID</th>
+                                <th class='classification'>Classification</th>
                                 <th class='name'>Name</th>
                                 <th class='name'>Username</th>
                                 <th class='email'>Email</th>
@@ -22,6 +23,9 @@
                             <tr>
                             <td>
                                 <%= User.cspid %>
+                            </td>
+                            <td>
+                                <%= User.classification %>
                             </td>
                             <td>
                                 <%= User.lastName %>, <%= User.firstName %>

@@ -328,6 +328,7 @@ router.post('/register', middleware.isLoggedIn, (req, res) => {
             country: req.body.country,
             notes: req.body.notes,
             status: req.body.status,
+            classification: req.body.classififcation,
         })
 
     User.register(newUser, req.body.password, function (err, user) {
@@ -372,6 +373,7 @@ router.put('/edituser/:id', middleware.isLoggedIn, function (req, res) {
             notes: req.body.notes,
             status: req.body.status,
             client: req.body.client,
+            classification: req.body.classification,
         }};
         db.collection("users").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
             if (err) {
