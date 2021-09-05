@@ -328,7 +328,7 @@ router.post('/register', middleware.isLoggedIn, (req, res) => {
             country: req.body.country,
             notes: req.body.notes,
             status: req.body.status,
-            classification: req.body.classififcation,
+            classification: req.body.classification,
         })
 
     User.register(newUser, req.body.password, function (err, user) {

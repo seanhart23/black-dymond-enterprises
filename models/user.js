@@ -19,7 +19,7 @@ var UserSchema = new mongoose.Schema({
     country: String,
     notes: String,
     status: String,
-    classififcation: String,
+    classification: String,
 });
 
 UserSchema.plugin(passportLocalMongoose);
