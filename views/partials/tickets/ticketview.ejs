@@ -59,7 +59,7 @@
                     <tr>
                         <td class='label'>Time Submitted:</td>
                         <td>
-                            <%= ticket.created.toLocaleTimeString() %>
+                            <%= ticket.created.toLocaleTimeString('en-US', { timeZone: 'America/New_York' }); %>
                         </td>
                     </tr>
                     <% if(currentUser.role === 'Admin'){ %>
