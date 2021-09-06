@@ -31,6 +31,7 @@ var express        = require('express'),
     Dca            = require('../models/dca'),
     upload         = require("../middleware/upload"),
     savedCSPID     ="",
+    saveduserId     ="",
     url            = "mongodb+srv://amber:Dymond100!@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
         useNewUrlParser: true,
@@ -978,19 +979,14 @@ router.post('/reset', middleware.isLoggedIn, (req, res) => {
     })
 
     savedCSPID = req.body.cspid;
-    
+    saveduserId = req.body.userId;
+
     Reset.create(newReset, function (err, reset) {
         if (err) {
             console.log(err);
             return res.redirect('/dashboard');
         }
     });
-
-    User.findByIdAndRemove(req.body.userId, function (err) {
-        if (err) {
-            res.redirect('/manage');
-        }
-    })
 
     res.redirect('/reset');
 
@@ -1020,19 +1016,48 @@ router.post('/resetpassword', middleware.isLoggedIn, (req, res) => {
         reset: req.body.reset,
     })
 
+    // Register new user with temp name
     User.register(newUser, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
         }
+
+    // Remove temp user
         Reset.findByIdAndRemove(req.body.reset, function (err) {
             if (err) {
                 res.redirect('/manage');
             }
             res.redirect('/manage');
         })
+
+    // Remove original user
+        User.findByIdAndRemove(saveduserId, function (err) {
+            if (err) {
+                res.redirect('/manage');
+            } else {
+                console.log('Old User Deleted')
+            }
+        })
+
+    // Remove _temp from username
+        var user = req.body.username;
+        var username = user.replace('_temp', '');
+        mongoose.connect(url, function (err, db) {
+            if (err) throw err;
+            var newvalues = {
+                $set: {
+                    username: username,
+                }
+            }
+            db.collection("users").updateOne({ "_id": newUser._id}, newvalues, function (err, res) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('User Updated: ' + newUser._id)
+                }
+            });
+        });
     });
-
-
 });
 
 router.get('/reset', middleware.isLoggedIn, function (req, res) {
