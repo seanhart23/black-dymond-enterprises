@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
-var passportLocalMongoose = require('passport-local-mongoose');
 
-var UserSchema = new mongoose.Schema({
+var ResetSchema = new mongoose.Schema({
     username: String,
     cspid: String,
     firstName: String,
@@ -20,9 +19,7 @@ var UserSchema = new mongoose.Schema({
     notes: String,
     status: String,
     classification: String,
-    resetId: String,
+    userId: String,
 });
 
-UserSchema.plugin(passportLocalMongoose);
-
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Reset', ResetSchema);

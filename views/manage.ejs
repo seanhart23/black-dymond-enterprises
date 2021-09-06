@@ -7,13 +7,15 @@
                 </div>
                 <% if(currentUser.role==="Admin" ){ %>
                     <div class='col-lg-10' id='right'>
-                        <div class='title'>Employees</div>
+                        <div class='title'>Employees
+                            <a href='/register'><button id='add'>Add an Employee</button></a>
+                        </div>
                         <table id='employees'>
                             <tr>
                                 <th class='cspid'>CSPID</th>
                                 <th class='name'>Classification</th>
                                 <th class='name'>Name</th>
-                                <th class='name'>Phone</th>
+                                <th class='phone'>Phone</th>
                                 <th class='email'>Email</th>
                                 <th colspan='3'>Actions</th>
                             </tr>
@@ -51,7 +53,6 @@
                             <% } %>
                         <% }) %>
                         </table>
-                        <a href='/register'><button id='add'>Add an Employee</button></a>
                     </div>                     
                     </div>
             </div>

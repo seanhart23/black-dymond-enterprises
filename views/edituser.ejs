@@ -1,4 +1,3 @@
-
 <%- include('./partials/global/header.ejs') -%>
     <div>
         <%- include('./partials/global/navbar.ejs') -%>
@@ -16,7 +15,7 @@
                                     <input type="text" class="form-control" name="username" value='<%= user.username %>' placeholder='Username' required>
                                 </div>
                                 <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="cspid" value='<%= user.cspid %>' placeholder='CSPID'>
+                                    <input type="number" class="form-control" minlength='7' maxlength='7' name="cspid" value='<%= user.cspid %>' placeholder='CSPID'>
                                 </div>
                             </div>
                             <div class='form-row'>
@@ -126,16 +125,119 @@
                                 </div>
                             </div>
 
+                            <button type="submit">Update</button><br><br>
+                        </form>
+                        
+                        <form action='/reset' method='POST' action="send">
+                        <div hidden>
                             <div class='form-row'>
                                 <div class="form-group col-md-5">
-                                 
+                                    <input type="text" class="form-control" name="username" value='<%= user.username %>_temp' placeholder='Username'
+                                        required>
                                 </div>
-                                <div class="form-group col-md-7">
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="cspid" value='<%= user.cspid %>' placeholder='CSPID'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="firstName" value='<%= user.firstName %>'
+                                        placeholder='First Name' required>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="lastName" value='<%= user.lastName %>' placeholder='Last Name'
+                                        required>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="email" class="form-control" name="email" value='<%= user.email %>' placeholder='Email Address'>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="tel" class="form-control" name="phone" value='<%= user.phone %>' placeholder='Phone Number'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="street" value='<%= user.street %>'
+                                        placeholder='Street Address'>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="city" value='<%= user.city %>' placeholder='City'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-2">
+                                    <input type="text" maxlength='2' minlength='2' class="form-control" name="state" value='<%= user.state %>'
+                                        placeholder='State'>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" maxlength='5' minlength='5' class="form-control" name="zip" value='<%= user.zip %>'
+                                        placeholder='Zip Code'>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" name="country" value='<%= user.country %>' placeholder='Country'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-10">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control"
+                                        name="hireDate" value='<%= user.hireDate %>' placeholder='Hire Date'>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="cca" value='<%= user.cca %>' placeholder='CCA'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <label>User Role</label>
+                                    <select class="form-control" name="role" id='role_edit'>
+                                        <option value='<%= user.role %>' selected>
+                                            <%= user.role %>
+                                        </option>
+                                        <option>Admin</option>
+                                        <option>Candidate</option>
+                                        <option>Employee</option>
+                                        <option>Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <% if(user.role==='Candidate' ){ %>
+                                        <div class="form-group" id='candidate_status_edit'>
+                                            <label>Candidate Status</label>
+                                            <input class="form-control" name="status" value='<%= user.status %>'>
+                                        </div>
+                                        <% } %>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
+                                    <label>Classification</label>
+                                    <input class="form-control" name="classification" value='<%= user.classification %>'>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label>Client</label>
+                                    <input class="form-control" name='client' id='client' value='<%= user.client %>'>
+                                </div>
+                            </div>
+                            <div class='form-row'>
+                                <div class="form-group col-md-5">
                                 </div>
                                 <div>
-                                    <button type="submit">Update</button>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" name="userId" value='<%= user._id %>' hidden>
+                                </div>
+                            </div>
+                        </div>
+                            
+                                <button type="submit">Reset Password</button>
                         </form>
-
                     </div>
                     <% } else { %>
                         <div class='col-lg-10' id='right'>

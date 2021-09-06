@@ -21,6 +21,7 @@ var express        = require('express'),
     ticket         = require('../models/ticket'),
     alert          = require('../models/alert'),
     link           = require('../models/links'),
+    Reset           = require('../models/reset'),
     sow            = require('../models/sow'),
     serviceType    = require('../models/serviceType'),
     pdf            = require('../models/pdf'),
@@ -29,6 +30,7 @@ var express        = require('express'),
     dcaResponse    = require('../models/dcaresponse'),
     Dca            = require('../models/dca'),
     upload         = require("../middleware/upload"),
+    savedCSPID     ="",
     url            = "mongodb+srv://amber:Dymond100!@black-dymond-enterprise.bxkyr.mongodb.net/black-dymond-enterprises?retryWrites=true&w=majority"
     connect        = mongoose.createConnection(url, {
         useNewUrlParser: true,
@@ -335,10 +337,10 @@ router.post('/register', middleware.isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
             return res.redirect('/dashboard');
-        }
-            res.redirect('/manage');
-        });
+        } 
+          res.redirect('/manage');
     });
+});
 
 router.get('/edituser/:id', middleware.isLoggedIn, function (req, res) {
     User.findById(req.params.id, function (err, foundUser) {
@@ -346,7 +348,7 @@ router.get('/edituser/:id', middleware.isLoggedIn, function (req, res) {
             if (err) {
                 console.log(err);
             } else {
-                res.render("edituser", { user: foundUser, clients: allClients });
+                res.render("edituser", { user: foundUser, clients: allClients});
             }
         });
     });
@@ -950,5 +952,99 @@ router.post('/dcaresponse', upload.single("file"), middleware.isLoggedIn, functi
         }
     });
 });
+
+
+router.post('/reset', middleware.isLoggedIn, (req, res) => {
+    var newReset = new Reset({
+        username: req.body.username,
+        cspid: req.body.cspid,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        hireDate: req.body.hireDate,
+        phone: req.body.phone,
+        email: req.body.email,
+        client: req.body.client,
+        cca: req.body.cca,
+        role: req.body.role,
+        street: req.body.street,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip,
+        country: req.body.country,
+        notes: req.body.notes,
+        status: req.body.status,
+        classification: req.body.classification,
+        userId: req.body.userId,
+    })
+
+    savedCSPID = req.body.cspid;
+    
+    Reset.create(newReset, function (err, reset) {
+        if (err) {
+            console.log(err);
+            return res.redirect('/dashboard');
+        }
+    });
+
+    User.findByIdAndRemove(req.body.userId, function (err) {
+        if (err) {
+            res.redirect('/manage');
+        }
+    })
+
+    res.redirect('/reset');
+
+});
+
+router.post('/resetpassword', middleware.isLoggedIn, (req, res) => {
+    
+    var newUser = new User({
+        username: req.body.username,
+        cspid: req.body.cspid,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        hireDate: req.body.hireDate,
+        phone: req.body.phone,
+        email: req.body.email,
+        client: req.body.client,
+        cca: req.body.cca,
+        role: req.body.role,
+        street: req.body.street,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip,
+        country: req.body.country,
+        notes: req.body.notes,
+        status: req.body.status,
+        classification: req.body.classification,
+        reset: req.body.reset,
+    })
+
+    User.register(newUser, req.body.password, function (err, user) {
+        if (err) {
+            console.log(err);
+        }
+        Reset.findByIdAndRemove(req.body.reset, function (err) {
+            if (err) {
+                res.redirect('/manage');
+            }
+            res.redirect('/manage');
+        })
+    });
+
+
+});
+
+router.get('/reset', middleware.isLoggedIn, function (req, res) {
+    client.find({}, function (err, allClients) {
+        Reset.find({}, function (err, allResets) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render("resetpassword", { clients: allClients, resets: allResets, cspid: savedCSPID });
+            }
+        })
+    })
+})
 
 module.exports = router;

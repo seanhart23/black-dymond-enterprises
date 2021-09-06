@@ -7,11 +7,13 @@
                 </div>
                 <% if(currentUser.role==="Admin" ){ %>
                     <div class='col-lg-10' id='right'>
-                        <div class='title'>Candidates</div>
+                        <div class='title'>Candidates
+                            <a href='/register'><button id='add'>Add a Candidate</button></a>
+                        </div>
                         <table id='employees'>
                             <tr>
-                                <th class='name'>Name</th>
-                                <th class='name'>Status</th>
+                                <th class='phone'>Name</th>
+                                <th class='phone'>Status</th>
                                 <th class='name'>Phone</th>
                                 <th class='email'>Email</th>
                                 <th colspan='3'>Actions</th>
@@ -47,7 +49,6 @@
                                 <% } %>
                                 <% }) %>
                         </table>
-                        <a href='/register'><button id='add'>Add an Candidate</button></a>
                     </div>
             </div>
     </div>
