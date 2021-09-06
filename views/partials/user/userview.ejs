@@ -1,6 +1,6 @@
     <div class='title'>Employee/Candidate Details</div>
         <div class='row'>
-            <div class='col-lg-5'>
+            <div class='col-lg-4'>
                 <table class='timesheetview'>
                     <tr>
                         <td class='label'>Name:</td>
@@ -36,12 +36,18 @@
                     </tr>
                 </table>
             </div>
-            <div class='col-lg-7'>
+            <div class='col-lg-8'>
                 <table class='timesheetview'>
                     <tr>
                         <td class='label'>Role:</td>
                         <td>
                             <%= user.role %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='label'>Classification:</td>
+                        <td>
+                            <%= user.classification %>
                         </td>
                     </tr>
                         <% if(user.role === 'Candidate'){ %>
