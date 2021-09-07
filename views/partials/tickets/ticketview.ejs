@@ -111,22 +111,22 @@
                                         <tr>
                                         <td class='datestamp'><%= date %> - <%= time %>:</td>
                                         <td class='note'>
-                                        <form action="/ticketresponse/<%= ticketResponse._id%>?_method=PUT" method="post">
+                                        <form action="/ticketresponse/<%= ticketResponse._id%>?_method=PUT" method="post" style='display: inline'>
                                             <input type="text" class="form-control-file" name='ticketId' value='<%= ticketResponse.ticketId %>' hidden>
                                             <input value='<%= ticketResponse.comment %>' name='comment' class='note-input'>
                                                 <% if( ticketResponse.attachment != null){ %>
-                                                    - <a href='<%= ticketResponse.attachment %>' target='_blank'>Download</a>
+                                                    <a href='<%= ticketResponse.attachment %>' target='_blank'>Download</a>
                                                 <% } %>
+                                               
                                             <button type='submit' class='word-submit'>Update</button> |
                                         </form>
-                                        </td>
                                         <% if (currentUser.role==='Admin' ){ %>
-                                            <td class='note'>
-                                                <form action="/ticketresponse/<%= ticketResponse._id%>?_method=DELETE" method="POST" class="delete-form">
-                                                    <button class='word-submit' id='deleteButton'> Delete</button>
-                                                </form>
-                                            </td>
-                                            <% } %>
+                                        <form action="/ticketresponse/<%= ticketResponse._id%>?_method=DELETE" method="POST" class="delete-form" style='display: inline'>
+                                            <button class='word-submit' id='deleteButton'> Delete</button>
+                                        </form>
+                                        <% } %>
+                                        </td>
+            
                                         </tr>
                                     <% } %>
                                 <% }) %>
