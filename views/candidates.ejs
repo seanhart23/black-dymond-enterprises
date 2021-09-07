@@ -10,6 +10,17 @@
                         <div class='title'>Candidates
                             <a href='/register'><button id='add'>Add a Candidate</button></a>
                         </div>
+                        <input class='form-control' id='search' placeholder='Filter Results'>
+                        <script>
+                            $(document).ready(function () {
+                                $("#search").on("keyup", function () {
+                                    var value = $(this).val().toLowerCase();
+                                    $("#employees .searchfilter").filter(function () {
+                                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                    });
+                                });
+                            });
+                        </script>
                         <table id='employees'>
                             <tr>
                                 <th class='phone'>Name</th>
@@ -20,7 +31,7 @@
                             </tr>
                             <% Users.forEach(function(User){ %>
                                 <% if(User.role==="Candidate" ){ %>
-                                <tr>
+                                <tr class='searchfilter'>
                                     <td>
                                         <%= User.lastName %>, <%= User.firstName %>
                                     </td>

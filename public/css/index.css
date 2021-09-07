@@ -271,6 +271,10 @@ html {
     margin: 0px!important;
 }
 
+#search, #searchcandidates {
+    width: 50%;
+    margin-bottom: 25px;
+}
 .secondary-menu-link {
     padding: 10px 10px 10px 30px;
     z-index: 10;

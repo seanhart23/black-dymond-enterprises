@@ -7,20 +7,32 @@
                 </div>
                 <div class='col-lg-10' id='right'>
                     <div class='title'>Ticket Reporting</div>
+                    <input class='form-control' id='search' placeholder='Filter Results'>
+                    <script>
+                        $(document).ready(function () {
+                            $("#search").on("keyup", function () {
+                                var value = $(this).val().toLowerCase();
+                                $("#tickets .searchfilter").filter(function () {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                });
+                            });
+                        });
+                    </script>
+
                     <table id='tickets'>
-                        <tr>
+                        <thead>
                             <th class='date'>Date Submitted</th>
                             <th class='time'>Time Submitted</th>
                             <th class='time'>Status</th>
                             <th class='name'>Submitted By</th>
                             <th class='type'>Service Type</th>
                             <th colspan='2'>Actions</th>
-                        </tr>
+                        </thead>
                         <% tickets.forEach(function(ticket){ %>
                             <% if(currentUser.role === 'Admin'){ %>
                             <% var date=ticket.created.toLocaleDateString() %>
                             <% var time=ticket.created.toLocaleTimeString() %>
-                            <tr>
+                            <tr class='searchfilter'>
                                 <td>
                                     <%= date %>
                                 </td>

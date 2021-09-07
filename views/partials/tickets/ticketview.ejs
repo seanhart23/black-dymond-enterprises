@@ -2,7 +2,7 @@
     <div class='title'>Ticket Overview</div>
     <div class='timesheet-body'>
         <div class='row'>
-            <div class='col-lg-6'>
+            <div class='col-lg-4'>
                 <table class='ticketview'>
                     <% users.forEach(function(user){ %>
                         <% if(user.cspid===ticket.cspid){ %>
@@ -51,7 +51,7 @@
                     </tr>
                 </table>
             </div>
-            <div class='col-lg-6'>
+            <div class='col-lg-8'>
                 <table class='ticketview'>
                     <tr>
                         <td class='label'>Date Submitted:</td>
@@ -110,12 +110,23 @@
                                         <% var time = ticketResponse.created.toLocaleTimeString() %>
                                         <tr>
                                         <td class='datestamp'><%= date %> - <%= time %>:</td>
-                                        <td>
-                                            <%= ticketResponse.comment %>
-                                            <% if( ticketResponse.attachment != null){ %>
-                                                - <a href='<%= ticketResponse.attachment %>' target='_blank'>Download</a>
-                                            <% } %>
+                                        <td class='note'>
+                                        <form action="/ticketresponse/<%= ticketResponse._id%>?_method=PUT" method="post">
+                                            <input type="text" class="form-control-file" name='ticketId' value='<%= ticketResponse.ticketId %>' hidden>
+                                            <input value='<%= ticketResponse.comment %>' name='comment' class='note-input'>
+                                                <% if( ticketResponse.attachment != null){ %>
+                                                    - <a href='<%= ticketResponse.attachment %>' target='_blank'>Download</a>
+                                                <% } %>
+                                            <button type='submit' class='word-submit'>Update</button> |
+                                        </form>
                                         </td>
+                                        <% if (currentUser.role==='Admin' ){ %>
+                                            <td class='note'>
+                                                <form action="/ticketresponse/<%= ticketResponse._id%>?_method=DELETE" method="POST" class="delete-form">
+                                                    <button class='word-submit' id='deleteButton'> Delete</button>
+                                                </form>
+                                            </td>
+                                            <% } %>
                                         </tr>
                                     <% } %>
                                 <% }) %>

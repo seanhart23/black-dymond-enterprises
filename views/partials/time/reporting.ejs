@@ -1,34 +1,16 @@
 <div class='title'>Daily Timesheet Reporting</div>
 
-<div class='filters'>
-<!-- <div class="accordion" id="accordionExample"> -->
-    <!-- <div class="card"> -->
-        <!-- <div class="card-header" id="headingOne"> -->
-            <!-- <h2 class="mb-0"> -->
-                <button type="button" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    Filters
-                </button>
-                <p></p>
-            <!-- </h2> -->
-        <!-- </div> -->
-
-        <div class="collapse" id="collapseOne">
-            <div class="card card-body">
-                <select class='form-control' id='filter-employee'>
-                    <option selected disabled>Select an Employee</option>
-                    <% users.forEach(function(user){ %>
-                        <option value='<%= user.cspid %>'>
-                            <%= user.lastName %>, <%= user.firstName %>
-                        </option>
-                        <% }) %>
-                </select>
-                <button id='clear'>Clear Filters</button>
-            </div>
-        </div>
-    <!-- </div> -->
-<!-- </div> -->
-</div>
+<input class='form-control' id='search' placeholder='Filter Results'>
+<script>
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#timesheets .searchfilter").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 
 <br>
     <table id='timesheets'>
@@ -44,7 +26,7 @@
         <% timesheets.forEach(function(timesheet){ %>
             <% var date = timesheet.created.toLocaleDateString() %>
             <% var time = timesheet.created.toLocaleTimeString() %>
-        <tr>
+        <tr class='searchfilter'>
             <td><%= date %></td>
             <td><%= time %></td>
             <td><%= timesheet.cspid %></td>

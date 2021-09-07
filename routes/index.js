@@ -643,6 +643,35 @@ router.post('/ticketresponse', upload.single("file"), middleware.isLoggedIn, fun
     });
 });
 
+router.put('/ticketresponse/:id', middleware.isLoggedIn, function (req, res) {
+    mongoose.connect(url, function (err, db) {
+        if (err) throw err;
+        var newvalues = {
+            $set: {
+                comment: req.body.comment,
+            }
+        };
+        db.collection("ticketresponses").updateOne({ "_id": ObjectId(req.params.id) }, newvalues, function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Ticket Note  Updated')
+            }
+        });
+    })
+    res.redirect("/ticketview/" + req.body.ticketId);
+});
+
+router.delete('/ticketresponse/:id', middleware.isLoggedIn, function (req, res) {
+    ticketResponse.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            res.redirect('/dashboard');
+        } else {
+            res.redirect('/ticketreporting');
+        }
+    });
+});
+
 /** ALERTS */
 router.get('/alerts', middleware.isLoggedIn, (req, res) => {
     alert.find({}, function (err, allAlerts) {

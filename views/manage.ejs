@@ -10,6 +10,17 @@
                         <div class='title'>Employees
                             <a href='/register'><button id='add'>Add an Employee</button></a>
                         </div>
+                        <input class='form-control' id='search' placeholder='Filter Results'>
+                        <script>
+                            $(document).ready(function () {
+                                $("#search").on("keyup", function () {
+                                    var value = $(this).val().toLowerCase();
+                                    $("#employees .searchfilter").filter(function () {
+                                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                    });
+                                });
+                            });
+                        </script>
                         <table id='employees'>
                             <tr>
                                 <th class='cspid'>CSPID</th>
@@ -22,7 +33,7 @@
                         <% Users.forEach(function(User){ %>
                             <% if(User.role != 'Candidate'){ %>
 
-                            <tr>
+                            <tr class='searchfilter'>
                             <td>
                                 <%= User.cspid %>
                             </td>
