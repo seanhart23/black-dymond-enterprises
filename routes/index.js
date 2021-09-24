@@ -635,14 +635,13 @@ router.put('/ticketentry/:id', middleware.isLoggedIn, function (req, res) {
 
                 smtpTrans.sendMail(mailOpts, (error, response) => {
                     if (error) {
-                        res.redirect("/ticketview/" + req.body.ticket_id);
                     }
                     else {
-                        res.redirect("/ticketview/" + req.body.ticket_id);
                     }
                 })
             }
         });
+        res.redirect("/ticketview/" + req.body.ticket_id);
     })
 })
 
