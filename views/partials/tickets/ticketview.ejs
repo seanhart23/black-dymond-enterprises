@@ -119,10 +119,10 @@
                                         <form action="/ticketresponse/<%= ticketResponse._id%>?_method=PUT" method="post" style='display: inline'>
                                             <input type="text" class="form-control-file" name='ticketId' value='<%= ticketResponse.ticketId %>' hidden>
                                             <textarea value='' name='comment' class='ta-height' onkeyup="adjustHeight(this)"><%= ticketResponse.comment %></textarea>
-                                                <% if( ticketResponse.attachment != null){ %>
+                                            <span class='updateLinks'>    
+                                            <% if( ticketResponse.attachment != null){ %>
                                                     <a href='<%= ticketResponse.attachment %>' target='_blank'>Download</a>
                                                 <% } %>
-                                            <span class='updateLinks'>
                                             <button type='submit' class='word-submit'>Update</button> |
                                         </form>
                                         <% if (currentUser.role==='Admin' ){ %>
