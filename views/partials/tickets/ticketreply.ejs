@@ -11,5 +11,10 @@
         <label>Add Comments</label>
         <textarea type='text' class='form-control' name='comment'></textarea>
     </div>
+    <% users.forEach(function(user){ %>
+        <% if(user.cspid===ticket.cspid){ %>
+            <input type="text" name='agent_email' value='<%= user.email %>' hidden>
+        <% } %>
+    <% }) %>
     <button type='submit' id='submit'>Submit Response</button>
 </form>

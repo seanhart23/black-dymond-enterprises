@@ -86,6 +86,11 @@
                                             <option selected>Pending Resolution</option>
                                         <% } %>
                                     </select>
+                                        <% users.forEach(function(user){ %>
+                                            <% if(user.cspid===ticket.cspid){ %>
+                                                <input type="text" name='agent_email' value='<%= user.email %>' hidden>
+                                            <% } %>
+                                        <% }) %>
                                     <button type='submit' class='word-submit'> Update Status</button>
                                 </form>
                             </td>
@@ -113,17 +118,18 @@
                                         <td class='note'>
                                         <form action="/ticketresponse/<%= ticketResponse._id%>?_method=PUT" method="post" style='display: inline'>
                                             <input type="text" class="form-control-file" name='ticketId' value='<%= ticketResponse.ticketId %>' hidden>
-                                            <input value='<%= ticketResponse.comment %>' name='comment' class='note-input'>
+                                            <textarea value='' name='comment' class='ta-height' onkeyup="adjustHeight(this)"><%= ticketResponse.comment %></textarea>
                                                 <% if( ticketResponse.attachment != null){ %>
                                                     <a href='<%= ticketResponse.attachment %>' target='_blank'>Download</a>
                                                 <% } %>
-                                               
+                                            <span class='updateLinks'>
                                             <button type='submit' class='word-submit'>Update</button> |
                                         </form>
                                         <% if (currentUser.role==='Admin' ){ %>
                                         <form action="/ticketresponse/<%= ticketResponse._id%>?_method=DELETE" method="POST" class="delete-form" style='display: inline'>
                                             <button class='word-submit' id='deleteButton'> Delete</button>
                                         </form>
+                                            </span>
                                         <% } %>
                                         </td>
             

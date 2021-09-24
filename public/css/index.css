@@ -318,6 +318,15 @@ html {
     /* margin-top: 30px; */
 }
 
+textarea {
+    min-height: 30px;
+    width: 300px;
+    overflow-y: auto;
+    word-wrap:break-word;
+    margin: 0; 
+    border: none;
+}
+
 table {
     margin-left: 10px;
     font-size: 12px;
@@ -410,6 +419,10 @@ th {
 }
 
 .trash {
+    float: right;
+}
+
+.updateLinks {
     float: right;
 }
 

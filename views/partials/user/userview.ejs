@@ -93,10 +93,11 @@
                                                     <form action="/usernote/<%= userNote._id %>?_method=PUT" method="post">
                                                         <input type="text" class="form-control-file" name='user_id' value='<%= user._id %>' hidden>
                                                     
-                                                    <input value='<%= userNote.comment %>' name='comment' class='note-input'>
+                                                    <textarea value='' name='comment'><%= userNote.comment %></textarea>
                                                         <% if( userNote.attachment !=null){ %>
                                                             - <a href='<%= userNote.attachment %>' target='_blank'>Download</a>
                                                             <% } %>
+                                                            <span class='updateLinks'>
                                                             <button type='submit' class='word-submit'>Update</button> | 
                                                         </form>
                                                 </td>
@@ -106,6 +107,7 @@
                                                             <button class='word-submit' id='deleteButton'> Delete</button>
                                                         </form>
                                                     </td>
+                                                </span>
                                                 <% } %>
                                             </tr>
                                             <% } %>
