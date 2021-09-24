@@ -614,64 +614,38 @@ router.put('/ticketentry/:id', middleware.isLoggedIn, function (req, res) {
             if (err) {
                 console.log(err);
             } else {
-                console.log('Ticket Updated')
+                const smtpTrans = nodemailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: 'absideoninteractive@gmail.com',
+                        pass: 'ltadsmzscafllzpf'
+                    }
+                })
+                const mailOpts = {
+                    from: 'absideoninteractive@gmail.com',
+                    to: req.body.agent_email,
+                    subject: 'Your APBDE Ticket Has Been Updated',
+                    html: `<H2>Your ticket has been updated!</h2>
+                <H3>Please login to view the ticket status and response</h3>
+                <br>
+                <a href="https://apblackdymondenterprises.herokuapp.com/" style="background: red; padding: 10px 20px; text-decoration: none; color: white; border-radius: 25px; margin-top: 25px;">Login</a>`
+                }
+
+                smtpTrans.sendMail(mailOpts, (error, response) => {
+                    if (error) {
+                        res.redirect("/ticketview/" + req.body.ticket_id);
+                    }
+                    else {
+                        res.redirect("/ticketview/" + req.body.ticket_id);
+                    }
+                })
             }
         });
     })
-            const smtpTrans = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 465,
-                secure: true,
-                auth: {
-                    user: 'absideoninteractive@gmail.com',
-                    pass: 'ltadsmzscafllzpf'
-                }
-            })
-            const mailOpts = {
-                from: 'absideoninteractive@gmail.com',
-                to: req.body.agent_email,
-                subject: 'Your APBDE Ticket Has Been Updated',
-                html: `<H2>Your ticket has been updated!</h2>
-                <H3>Please login to view the ticket status and response</h3>
-                <br>
-                <a href="https://apblackdymondenterprises.herokuapp.com/" style="background: red; padding: 10px 20px; text-decoration: none; color: white; border-radius: 25px; margin-top: 25px;">Login</a>`
-            }
+})
 
-            smtpTrans.sendMail(mailOpts, (error, response) => {
-                if (error) {
-                    res.redirect("/ticketview/" + req.body.ticket_id);
-                }
-                else {
-                    const smtpTrans = nodemailer.createTransport({
-                        host: 'smtp.gmail.com',
-                        port: 465,
-                        secure: true,
-                        auth: {
-                            user: 'absideoninteractive@gmail.com',
-                            pass: 'ltadsmzscafllzpf'
-                        }
-                    })
-                    const mailOpts = {
-                        from: 'absideoninteractive@gmail.com',
-                        to: req.body.agent_email,
-                        subject: 'Your APBDE Ticket Has Been Updated',
-                        html: `<H2>Your ticket has been updated!</h2>
-                <H3>Please login to view the ticket status and response</h3>
-                <br>
-                <a href="https://apblackdymondenterprises.herokuapp.com/" style="background: red; padding: 10px 20px; text-decoration: none; color: white; border-radius: 25px; margin-top: 25px;">Login</a>`
-                    }
-
-                    smtpTrans.sendMail(mailOpts, (error, response) => {
-                        if (error) {
-                            res.redirect("/ticketview/" + req.body.ticket_id);
-                        }
-                        else {
-                            res.redirect("/ticketview/" + req.body.ticket_id);
-                        }
-                })
-            }
-        })
-    });
 
 router.post('/ticketresponse', upload.single("file"), middleware.isLoggedIn, function (req, res) {
     if (req.file != undefined) {
