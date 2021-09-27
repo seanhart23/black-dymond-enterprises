@@ -557,6 +557,7 @@ router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, functi
     if (req.file != undefined) {
         var newTicket = {
             cspid: req.body.cspid,
+            userid: req.body.userid,
             date: req.body.dateofentry,
             time: req.body.timeofentry,
             serviceType: req.body.serviceType,
@@ -569,6 +570,7 @@ router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, functi
     } else {
         var newTicket = {
             cspid: req.body.cspid,
+            userid: req.body.userid,
             date: req.body.dateofentry,
             time: req.body.timeofentry,
             serviceType: req.body.serviceType,

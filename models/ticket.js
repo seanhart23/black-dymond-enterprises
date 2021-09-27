@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var ticketSchema = mongoose.Schema({
     cspid: String,
+    userid: String,
     date: String,
     time: String,
     serviceType: String,

@@ -5,7 +5,7 @@
             <div class='col-lg-4'>
                 <table class='ticketview'>
                     <% users.forEach(function(user){ %>
-                        <% if(user.cspid===ticket.cspid){ %>
+                        <% if(user.cspid === ticket.cspid && user.cspid != "" || user.id === ticket.userid ){ %>
                             <tr>
                                 <td class='label'>Employee Name:</td>
                                 <td><%= user.lastName %>, <%= user.firstName %></td>
@@ -86,11 +86,11 @@
                                             <option selected>Pending Resolution</option>
                                         <% } %>
                                     </select>
-                                        <% users.forEach(function(user){ %>
+                                        <!-- <% users.forEach(function(user){ %>
                                             <% if(user.cspid===ticket.cspid){ %>
                                                 <input type="text" name='agent_email' value='<%= user.email %>' hidden>
                                             <% } %>
-                                        <% }) %>
+                                        <% }) %> -->
                                     <button type='submit' class='word-submit'> Update Status</button>
                                 </form>
                             </td>

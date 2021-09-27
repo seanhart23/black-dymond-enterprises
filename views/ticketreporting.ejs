@@ -43,7 +43,7 @@
                                     <%= ticket.status %>
                                 </td>
                                 <% users.forEach(function(user){ %>
-                                    <% if(user.cspid===ticket.cspid){ %>
+                                    <% if(user.cspid === ticket.cspid && user.cspid != "" || user.id === ticket.userid){ %>
                                         <td>
                                             <%= user.lastName %>, <%= user.firstName %>
                                         </td>
