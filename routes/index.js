@@ -268,7 +268,7 @@ router.post('/timesheets', upload.single("file"), middleware.isLoggedIn, functio
             validation: req.body.validation,
             missedClassDate: req.body.missedClassDate,
             timesheetHours: req.body.timesheetHours,
-            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
+            attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
         var newTimesheet = {
@@ -420,7 +420,7 @@ router.post('/usernote', upload.single("file"), middleware.isLoggedIn, function 
         var newUserNote= {
             userId: req.body.user_id,
             comment: req.body.comment,
-            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
+            attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
         var newUserNote = {
@@ -484,7 +484,7 @@ router.post('/uploadpayroll', upload.single("file"), middleware.isLoggedIn, (req
     var newPayroll = new Payroll({
         cspid: req.body.cspid,
         payperiod: req.body.payperiod,
-        attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`,
+        attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`,
     })
 
     Payroll.create(newPayroll, function (err, newlyCreated) {
@@ -565,7 +565,7 @@ router.post('/ticketentry', upload.single("file"), middleware.isLoggedIn, functi
             ticketNumber: req.body.ticketNumber,
             adminresponse: req.body.adminresponse,
             status: req.body.status,
-            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
+            attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
         var newTicket = {
@@ -653,7 +653,7 @@ router.post('/ticketresponse', upload.single("file"), middleware.isLoggedIn, fun
         var newTicketResponse = {
             ticketId: req.body.ticket_id,
             comment: req.body.comment,
-            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
+            attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
         var newTicketResponse = {
@@ -815,7 +815,7 @@ router.get('/pdfs', middleware.isLoggedIn, (req, res) => {
 router.post('/pdfs',upload.single("file"), middleware.isLoggedIn, (req, res) => {
     var newPdf = new pdf({
         title: req.body.title,
-        attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`,
+        attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`,
     })
 
     pdf.create(newPdf, function (err, newlyCreated) {
@@ -897,7 +897,7 @@ router.get('/banner', middleware.isLoggedIn, function (req, res) {
 router.post('/banner', upload.single("file"), middleware.isLoggedIn, function (req, res) {
     if (req.file != undefined) {
         var newBanner = {
-            attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`
+            attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`
         }
     } else {
         var newBanner = {
@@ -944,7 +944,7 @@ router.post('/sow', upload.single("file"), middleware.isLoggedIn, (req, res) => 
     var newSow = new sow({
         cspid: req.body.cspid,
         sowDate: req.body.sowDate,
-        attachment: `https://black-dymond-enterprises.herokuapp.com/file/${req.file.filename}`,
+        attachment: `https://apblackdymondenterprises.herokuapp.com/file/${req.file.filename}`,
     })
 
     sow.create(newSow, function (err, newlyCreated) {
